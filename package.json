@@ -9,6 +9,7 @@
     "generate:type": "npx supabase gen types --project-id=igfboflygtixuqmmlagm --lang=typescript --schema public > app/types/database-generated.types.ts"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@nextui-org/modal": "^2.2.7",
     "@nextui-org/react": "^2.6.11",
     "@nextui-org/system": "^2.4.6",
