@@ -1,3 +1,4 @@
+import TaskCard from "@/components/task-card";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -26,21 +27,10 @@ export default async function ProtectedPage() {
   const { data } = await q;
 
   return (
+    // TODO: 検索input
+
     <div className="flex flex-col gap-4">
-      {data?.map((task) => {
-        return (
-          <div
-            key={task.id}
-            className="flex flex-col gap-2 rounded-md border border-primary px-4 py-2 text-foreground"
-          >
-            <h3 className="text-lg font-bold">{task.name}</h3>
-            <p className="text-sm">{task.date}</p>
-            {task.description ? (
-              <p className="text-sm">{task.description}</p>
-            ) : null}
-          </div>
-        );
-      })}
+      {data?.map((task) => <TaskCard key={task.id} task={task} />)}
     </div>
   );
 }
