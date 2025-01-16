@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
@@ -13,21 +12,35 @@ export default async function ProtectedPage() {
     return redirect("/sign-in");
   }
 
+  const q = supabase
+    .from("tasks")
+    .select(`id, name, date, description`)
+    .eq("user_id", user.id)
+    .order("date", { ascending: false })
+    .order("name", { ascending: true });
+
+  // if (keyword) {
+  //   void q.like("name", `%${keyword}%`);
+  // }
+
+  const { data } = await q;
+
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-          <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
-        </div>
-      </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
-      </div>
+    <div className="flex flex-col gap-4">
+      {data?.map((task) => {
+        return (
+          <div
+            key={task.id}
+            className="border border-primary rounded-md text-foreground flex flex-col gap-2 px-4 py-2"
+          >
+            <h3 className="font-bold text-lg">{task.name}</h3>
+            <p className="text-sm">{task.date}</p>
+            {task.description ? (
+              <p className="text-sm">{task.description}</p>
+            ) : null}
+          </div>
+        );
+      })}
     </div>
   );
 }
