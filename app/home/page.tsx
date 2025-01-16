@@ -1,3 +1,4 @@
+import FloatingActionButton from "@/components/fab";
 import TaskCard from "@/components/task-card";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
@@ -27,10 +28,14 @@ export default async function ProtectedPage() {
   const { data } = await q;
 
   return (
-    // TODO: 検索input
+    <>
+      {/* TODO: 検索input */}
 
-    <div className="flex flex-col gap-4">
-      {data?.map((task) => <TaskCard key={task.id} task={task} />)}
-    </div>
+      <div className="flex flex-col gap-4">
+        {data?.map((task) => <TaskCard key={task.id} task={task} />)}
+      </div>
+
+      <FloatingActionButton />
+    </>
   );
 }
