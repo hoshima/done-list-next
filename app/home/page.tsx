@@ -31,9 +31,9 @@ export default async function ProtectedPage() {
         return (
           <div
             key={task.id}
-            className="border border-primary rounded-md text-foreground flex flex-col gap-2 px-4 py-2"
+            className="flex flex-col gap-2 rounded-md border border-primary px-4 py-2 text-foreground"
           >
-            <h3 className="font-bold text-lg">{task.name}</h3>
+            <h3 className="text-lg font-bold">{task.name}</h3>
             <p className="text-sm">{task.date}</p>
             {task.description ? (
               <p className="text-sm">{task.description}</p>
