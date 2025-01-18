@@ -7,7 +7,7 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-} from "@nextui-org/navbar";
+} from "@heroui/navbar";
 
 export const Header = () => {
   return (

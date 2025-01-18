@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
 export default function FloatingActionButton() {
