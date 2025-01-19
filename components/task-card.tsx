@@ -4,7 +4,7 @@ export default function TaskCard({ task }: { task: Task }) {
   return (
     <div
       key={task.id}
-      className="flex flex-col gap-2 rounded-md border border-primary px-4 py-2 text-foreground"
+      className="flex flex-col gap-1 rounded-md border border-primary px-4 py-4 text-foreground"
     >
       <h3 className="text-lg font-bold">{task.name}</h3>
       <p className="text-sm">{task.date}</p>
