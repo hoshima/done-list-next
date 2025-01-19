@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
 export default function FloatingActionButton() {
@@ -9,6 +10,8 @@ export default function FloatingActionButton() {
       <Button
         className="!fixed right-4 bottom-4 size-16"
         isIconOnly
+        as={Link}
+        href="/new"
         aria-label="やったことを追加する"
         color="secondary"
         variant="solid"
