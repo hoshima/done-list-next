@@ -6,12 +6,13 @@ import { Form } from "@heroui/form";
 import { Input, Textarea } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
+import { Task } from "@/app/types/task.type";
 
 type Props = ComponentProps<typeof Form> & {
-  pendingText?: string;
+  task?: Task;
 };
 
-export function TaskForm({ children, action, ...props }: Props) {
+export function TaskForm({ children, action, task, ...props }: Props) {
   type Errors = {
     name?: string;
     date?: string;
@@ -41,6 +42,7 @@ export function TaskForm({ children, action, ...props }: Props) {
           }}
           label="タイトル"
           name="title"
+          defaultValue={task ? task.name : ""}
         />
 
         <Input
@@ -55,9 +57,14 @@ export function TaskForm({ children, action, ...props }: Props) {
           label="日付"
           name="date"
           type="date"
+          defaultValue={task ? task.date : undefined}
         />
 
-        <Textarea label="説明" name="description" />
+        <Textarea
+          label="説明"
+          name="description"
+          defaultValue={task ? task.description : undefined}
+        />
 
         <div className="flex gap-4">
           <Button className="w-full" color="primary" type="submit">

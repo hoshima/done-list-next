@@ -4,7 +4,8 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { TaskCreate } from "./types/task.type";
+import { Task, TaskCreate } from "./types/task.type";
+import { createTaskId, TaskId } from "./types/branded.type";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -182,6 +183,42 @@ export const createTaskAction = async (formData: FormData) => {
   try {
     const supabase = await createClient();
     await supabase.from("tasks").insert(taskData);
+  } catch (error) {
+    console.log("error", error);
+  }
+
+  return redirect("/home");
+};
+
+export const updateTaskAction = async (id: TaskId, formData: FormData) => {
+  const isTaskCreate = (data: any): data is Task => {
+    return (
+      typeof data.name === "string" &&
+      typeof data.date === "string" &&
+      typeof data.description === "string"
+    );
+  };
+
+  const taskData = {
+    name: formData.get("title"),
+    description: formData.get("description"),
+    date: formData.get("date"),
+  };
+
+  if (!isTaskCreate(taskData)) {
+    return encodedRedirect("error", "/new", "Invalid task data");
+  }
+
+  try {
+    const supabase = await createClient();
+    await supabase
+      .from("tasks")
+      .update({
+        ...taskData,
+        id: createTaskId(id),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id);
   } catch (error) {
     console.log("error", error);
   }
