@@ -1,18 +1,17 @@
 "use client";
 
-import React, { FormEvent } from "react";
+import React from "react";
 import { type ComponentProps } from "react";
 import { Form } from "@heroui/form";
 import { Input, Textarea } from "@heroui/input";
 import { Button } from "@heroui/button";
-import { createTaskAction } from "@/app/actions";
 import { Link } from "@heroui/link";
 
-type Props = ComponentProps<typeof Button> & {
+type Props = ComponentProps<typeof Form> & {
   pendingText?: string;
 };
 
-export function TaskForm({ children, ...props }: Props) {
+export function TaskForm({ children, action, ...props }: Props) {
   type Errors = {
     name?: string;
     date?: string;
@@ -28,7 +27,7 @@ export function TaskForm({ children, ...props }: Props) {
       validationBehavior="native"
       validationErrors={errors}
       onReset={() => setSubmitted(null)}
-      action={createTaskAction}
+      action={action}
     >
       <div className="flex flex-col gap-4 w-96">
         <Input
