@@ -162,6 +162,7 @@ export const signOutAction = async () => {
 };
 
 export const createTaskAction = async (formData: FormData) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isTaskCreate = (data: any): data is TaskCreate => {
     return (
       typeof data.name === "string" &&
@@ -191,6 +192,7 @@ export const createTaskAction = async (formData: FormData) => {
 };
 
 export const updateTaskAction = async (id: TaskId, formData: FormData) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isTaskCreate = (data: any): data is Task => {
     return (
       typeof data.name === "string" &&

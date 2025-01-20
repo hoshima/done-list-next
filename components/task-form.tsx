@@ -24,13 +24,13 @@ export function TaskForm({ children, action, task, ...props }: Props) {
 
   return (
     <Form
-      className="w-full justify-center items-center space-y-4"
+      className="w-full items-center justify-center space-y-4"
       validationBehavior="native"
       validationErrors={errors}
       onReset={() => setSubmitted(null)}
       action={action}
     >
-      <div className="flex flex-col gap-4 w-96">
+      <div className="flex w-96 flex-col gap-4">
         <Input
           isRequired
           errorMessage={({ validationDetails }) => {

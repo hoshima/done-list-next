@@ -23,5 +23,8 @@ export default [
     plugins: {
       tailwindcss,
     },
+    rules: {
+      "@typescript-eslint/no-unused-vars": "warn",
+    },
   },
 ];
