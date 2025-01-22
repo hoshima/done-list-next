@@ -4,6 +4,7 @@ import React from "react";
 import { type ComponentProps } from "react";
 import { Form } from "@heroui/form";
 import { Input, Textarea } from "@heroui/input";
+import { DeleteButton } from "@/components/delete-button";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { Task } from "@/app/types/task.type";
@@ -66,13 +67,17 @@ export function TaskForm({ children, action, task, ...props }: Props) {
           defaultValue={task ? task.description : undefined}
         />
 
-        <div className="flex gap-4">
-          <Button className="w-full" color="primary" type="submit">
-            やった
-          </Button>
-          <Button type="reset" variant="bordered" as={Link} href="/home">
-            戻る
-          </Button>
+        <div className="flex justify-between">
+          <DeleteButton id={task ? task.id : undefined} />
+
+          <div className="flex gap-4">
+            <Button variant="bordered" as={Link} href="/home">
+              戻る
+            </Button>
+            <Button color="primary" type="submit">
+              やった
+            </Button>
+          </div>
         </div>
       </div>
     </Form>

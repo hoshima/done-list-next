@@ -227,3 +227,11 @@ export const updateTaskAction = async (id: TaskId, formData: FormData) => {
 
   return redirect("/home");
 };
+
+export const deleteTaskAction = async (id: TaskId) => {
+  const supabase = await createClient();
+
+  await supabase.from("tasks").delete().eq("id", id).throwOnError();
+
+  return redirect("/home");
+};
