@@ -2,7 +2,11 @@ import { createClient } from "@/utils/supabase/server";
 import TaskCard from "./task-card";
 import { redirect } from "next/navigation";
 
-export default async function TaskList() {
+export default async function TaskList({
+  query,
+}: {
+  query?: string | string[];
+}) {
   const supabase = await createClient();
 
   const {
@@ -20,9 +24,9 @@ export default async function TaskList() {
     .order("date", { ascending: false })
     .order("name", { ascending: true });
 
-  // if (keyword) {
-  //   void q.like("name", `%${keyword}%`);
-  // }
+  if (query) {
+    void q.like("name", `%${query}%`);
+  }
 
   const { data } = await q;
 
