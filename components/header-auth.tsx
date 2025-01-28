@@ -32,7 +32,7 @@ export default async function AuthButton() {
               disabled
               className="pointer-events-none cursor-none opacity-75"
             >
-              <Link href="/sign-in">Sign in</Link>
+              <Link href="/sign-in">ログイン</Link>
             </Button>
             <Button
               asChild
@@ -41,7 +41,7 @@ export default async function AuthButton() {
               disabled
               className="pointer-events-none cursor-none opacity-75"
             >
-              <Link href="/sign-up">Sign up</Link>
+              <Link href="/sign-up">登録</Link>
             </Button>
           </div>
         </div>
@@ -53,17 +53,17 @@ export default async function AuthButton() {
       {user.email}
       <form action={signOutAction}>
         <Button type="submit" variant={"outline"}>
-          Sign out
+          ログアウト
         </Button>
       </form>
     </div>
   ) : (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>
-        <Link href="/sign-in">Sign in</Link>
+        <Link href="/sign-in">ログイン</Link>
       </Button>
       <Button asChild size="sm" variant={"default"}>
-        <Link href="/sign-up">Sign up</Link>
+        <Link href="/sign-up">登録</Link>
       </Button>
     </div>
   );

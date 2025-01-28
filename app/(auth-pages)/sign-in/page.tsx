@@ -10,7 +10,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
     <div className="flex min-w-64 flex-1 flex-col">
-      <h1 className="text-2xl font-medium">Sign in</h1>
+      <h1 className="text-2xl font-medium">ログイン</h1>
 
       <form
         className="flex w-full items-center justify-center "
@@ -30,33 +30,31 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
       </form>
 
       <p className="text-sm text-foreground">
-        Don&apos;t have an account?{" "}
+        アカウントが無い場合は{" "}
         <Link className="font-medium text-foreground underline" href="/sign-up">
-          Sign up
+          登録
         </Link>
       </p>
 
       <form>
         <div className="mt-8 flex flex-col gap-2 [&>input]:mb-3">
-          <Label htmlFor="email">Email</Label>
-          <Input name="email" placeholder="you@example.com" required />
+          <Label htmlFor="email">メールアドレス</Label>
+          <Input name="email" required />
           <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">パスワード</Label>
             <Link
               className="text-xs text-foreground underline"
               href="/forgot-password"
             >
-              Forgot Password?
+              パスワードを忘れたときは
             </Link>
           </div>
-          <Input
-            type="password"
-            name="password"
-            placeholder="Your password"
-            required
-          />
-          <SubmitButton pendingText="Signing In..." formAction={signInAction}>
-            Sign in
+          <Input type="password" name="password" required />
+          <SubmitButton
+            pendingText="ログインしています…"
+            formAction={signInAction}
+          >
+            ログイン
           </SubmitButton>
           <FormMessage message={searchParams} />
         </div>
