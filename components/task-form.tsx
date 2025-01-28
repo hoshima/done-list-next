@@ -31,7 +31,7 @@ export function TaskForm({ children, action, task, ...props }: Props) {
       onReset={() => setSubmitted(null)}
       action={action}
     >
-      <div className="flex w-96 flex-col gap-4">
+      <div className="flex w-full md:max-w-96 flex-col gap-4">
         <Input
           isRequired
           errorMessage={({ validationDetails }) => {
@@ -67,17 +67,17 @@ export function TaskForm({ children, action, task, ...props }: Props) {
           defaultValue={task ? task.description : undefined}
         />
 
-        <div className="flex justify-between">
+        <div className="flex flex-col-reverse md:flex-row gap-2">
           <DeleteButton id={task ? task.id : undefined} />
 
-          <div className="flex gap-4">
-            <Button variant="bordered" as={Link} href="/home">
-              戻る
-            </Button>
-            <Button color="primary" type="submit">
-              やった
-            </Button>
-          </div>
+          <span className="hidden md:inline md:flex-auto"></span>
+
+          <Button variant="bordered" as={Link} href="/home">
+            戻る
+          </Button>
+          <Button color="primary" type="submit">
+            やった
+          </Button>
         </div>
       </div>
     </Form>
