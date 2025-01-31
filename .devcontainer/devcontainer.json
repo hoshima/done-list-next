@@ -28,7 +28,8 @@
         "bradlc.vscode-tailwindcss",
         "EditorConfig.EditorConfig",
         "mhutchie.git-graph",
-        "yusukehirao.vscode-markuplint"
+        "yusukehirao.vscode-markuplint",
+        "eamodio.gitlens"
       ]
     }
   }
