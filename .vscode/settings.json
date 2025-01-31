@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["heroui", "supabase"]
+  "cSpell.words": ["heroui", "supabase"],
+  "editor.formatOnSave": true
 }
