@@ -3,6 +3,9 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/ui/header";
+import { EnvVarWarning } from "@/components/env-var-warning";
+import HeaderAuth from "@/components/header-auth";
+import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -30,7 +33,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-background text-foreground">
         <Providers>
           <div className="mb-20">
-            <Header />
+            <Header>{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</Header>
           </div>
           <main className="flex flex-col items-center">
             <div className="flex w-full flex-1 flex-col items-center gap-20">
