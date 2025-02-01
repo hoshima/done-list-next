@@ -31,7 +31,7 @@ export function TaskForm({ children, action, task, ...props }: Props) {
       onReset={() => setSubmitted(null)}
       action={action}
     >
-      <div className="flex w-full md:max-w-96 flex-col gap-4">
+      <div className="flex w-full flex-col gap-4 md:max-w-96">
         <Input
           isRequired
           errorMessage={({ validationDetails }) => {
@@ -67,7 +67,7 @@ export function TaskForm({ children, action, task, ...props }: Props) {
           defaultValue={task ? task.description : undefined}
         />
 
-        <div className="flex flex-col-reverse md:flex-row gap-2">
+        <div className="flex flex-col-reverse gap-2 md:flex-row">
           <DeleteButton id={task ? task.id : undefined} />
 
           <span className="hidden md:inline md:flex-auto"></span>
