@@ -1,8 +1,7 @@
 import { signInAction, signInWithGoogleAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@heroui/input";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -29,27 +28,28 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
         </button>
       </form>
 
-      <p className="text-sm text-foreground">
-        アカウントが無い場合は{" "}
-        <Link className="font-medium text-foreground underline" href="/sign-up">
-          登録
-        </Link>
-      </p>
-
+      <div className="text-foreground underline">
+        <p>
+          <Link className="text-sm font-medium" href="/sign-up">
+            アカウントが無い場合はこちら
+          </Link>
+        </p>
+        <p>
+          <Link className="text-xs" href="/forgot-password">
+            パスワードを忘れたときはこちら
+          </Link>
+        </p>
+      </div>
       <form>
-        <div className="mt-8 flex flex-col gap-2 [&>input]:mb-3">
-          <Label htmlFor="email">メールアドレス</Label>
-          <Input name="email" required />
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">パスワード</Label>
-            <Link
-              className="text-xs text-foreground underline"
-              href="/forgot-password"
-            >
-              パスワードを忘れたときは
-            </Link>
-          </div>
-          <Input type="password" name="password" required />
+        <div className="mt-4 flex flex-col gap-4">
+          <Input label="メールアドレス" name="email" isRequired />
+          <Input
+            label="パスワード"
+            type="password"
+            name="password"
+            isRequired
+          />
+
           <SubmitButton
             pendingText="ログインしています…"
             formAction={signInAction}

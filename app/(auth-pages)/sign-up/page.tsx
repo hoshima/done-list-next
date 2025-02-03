@@ -1,8 +1,7 @@
 import { signUpAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@heroui/input";
 import Link from "next/link";
 
 export default async function Signup(props: {
@@ -27,11 +26,15 @@ export default async function Signup(props: {
             ログイン
           </Link>
         </p>
-        <div className="mt-8 flex flex-col gap-2 [&>input]:mb-3">
-          <Label htmlFor="email">メールアドレス</Label>
-          <Input name="email" required />
-          <Label htmlFor="password">パスワード</Label>
-          <Input type="password" name="password" minLength={6} required />
+        <div className="mt-4 flex flex-col gap-4">
+          <Input label="メールアドレス" name="email" isRequired />
+          <Input
+            label="パスワード"
+            type="password"
+            name="password"
+            minLength={6}
+            isRequired
+          />
           <SubmitButton formAction={signUpAction} pendingText="登録しています…">
             登録
           </SubmitButton>

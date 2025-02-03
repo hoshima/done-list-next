@@ -1,8 +1,7 @@
 import { forgotPasswordAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@heroui/input";
 import Link from "next/link";
 
 export default async function ForgotPassword(props: {
@@ -11,7 +10,7 @@ export default async function ForgotPassword(props: {
   const searchParams = await props.searchParams;
   return (
     <>
-      <form className="mx-auto flex w-full min-w-64 max-w-64 flex-1 flex-col gap-2 text-foreground [&>input]:mb-6">
+      <form className="mx-auto flex w-full min-w-64 max-w-64 flex-1 flex-col gap-4 text-foreground">
         <div>
           <h1 className="text-2xl font-medium">パスワードをリセット</h1>
           <p className="text-sm text-secondary-foreground">
@@ -21,9 +20,8 @@ export default async function ForgotPassword(props: {
             </Link>
           </p>
         </div>
-        <div className="mt-8 flex flex-col gap-2 [&>input]:mb-3">
-          <Label htmlFor="email">メールアドレス</Label>
-          <Input name="email" required />
+        <div className="mt-4 flex flex-col gap-4">
+          <Input label="メールアドレス" name="email" isRequired />
           <SubmitButton formAction={forgotPasswordAction}>
             リセット
           </SubmitButton>
