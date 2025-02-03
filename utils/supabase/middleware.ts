@@ -42,7 +42,8 @@ export const updateSession = async (request: NextRequest) => {
     // protected routes
     if (
       (request.nextUrl.pathname === "/home" ||
-        request.nextUrl.pathname.startsWith("/protected")) &&
+        request.nextUrl.pathname.startsWith("/protected") ||
+        request.nextUrl.pathname.startsWith("/setting")) &&
       user.error
     ) {
       return NextResponse.redirect(new URL("/sign-in", request.url));

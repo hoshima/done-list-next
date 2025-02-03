@@ -1,7 +1,7 @@
 "use server";
 
 import { encodedRedirect } from "@/utils/utils";
-import { createClient } from "@/utils/supabase/server";
+import { createAdminClient, createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Task, TaskCreate } from "./types/task.type";
@@ -159,6 +159,28 @@ export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return redirect("/sign-in");
+};
+
+export const deleteAccountAction = async () => {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    throw new Error("削除するアカウントが存在しません");
+  }
+
+  const supabaseAdmin = await createAdminClient();
+  try {
+    const res = await supabaseAdmin.auth.admin.deleteUser(user.id);
+    if (!!res.error) {
+      console.error(res.error);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  return redirect("/");
 };
 
 export const createTaskAction = async (formData: FormData) => {
