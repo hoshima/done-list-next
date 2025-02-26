@@ -29,7 +29,8 @@
         "EditorConfig.EditorConfig",
         "mhutchie.git-graph",
         "yusukehirao.vscode-markuplint",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "GitHub.copilot"
       ]
     }
   }
