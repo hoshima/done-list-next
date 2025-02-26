@@ -25,7 +25,7 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
           aria-label={isMenuOpen ? "メニューを閉じる" : "メニューを開く"}
         />
         <NavbarBrand>
-          <Link href={"/"}>やったログ</Link>
+          <Link href={"/home"}>やったログ</Link>
         </NavbarBrand>
       </NavbarContent>
 
