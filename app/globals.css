@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* iOSのinput[type="date"]が中央揃えになるのを左に寄せる */
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
