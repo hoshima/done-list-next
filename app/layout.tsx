@@ -32,10 +32,9 @@ export default function RootLayout({
     <html lang="ja" className={geistSans.className} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground">
         <Providers>
-          <div className="mb-4 md:mb-20">
-            <Header>{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</Header>
-          </div>
-          <main className="flex flex-col items-center">
+          <Header>{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</Header>
+
+          <main className="flex flex-col items-center py-4">
             <div className="flex w-full flex-1 flex-col items-center gap-8 md:gap-20">
               <div className="container max-w-5xl">{children}</div>
 
