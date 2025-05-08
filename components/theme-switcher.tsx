@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  ComputerDesktopIcon,
+  MoonIcon,
+  SunIcon,
+} from "@heroicons/react/16/solid";
 import { Button } from "@heroui/button";
 import {
   Dropdown,
@@ -7,35 +12,23 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@heroui/dropdown";
-import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
-
-  const ICON_SIZE = 16;
 
   return (
     <Dropdown>
       <DropdownTrigger>
         <Button isIconOnly aria-label="テーマを切り替え" variant="light">
           {theme === "light" ? (
-            <Sun
-              key="light"
-              size={ICON_SIZE}
-              className={"text-muted-foreground"}
-            />
+            <SunIcon key="light" className="size-4 text-muted-foreground" />
           ) : theme === "dark" ? (
-            <Moon
-              key="dark"
-              size={ICON_SIZE}
-              className={"text-muted-foreground"}
-            />
+            <MoonIcon key="dark" className="size-4 text-muted-foreground" />
           ) : (
-            <Laptop
+            <ComputerDesktopIcon
               key="system"
-              size={ICON_SIZE}
-              className={"text-muted-foreground"}
+              className="size-4 text-muted-foreground"
             />
           )}
         </Button>
@@ -51,18 +44,14 @@ const ThemeSwitcher = () => {
         <DropdownItem
           key="light"
           aria-label="ライト"
-          startContent={
-            <Sun size={ICON_SIZE} className="text-muted-foreground" />
-          }
+          startContent={<SunIcon className="size-4 text-muted-foreground" />}
         >
           <span>Light</span>
         </DropdownItem>
         <DropdownItem
           key="dark"
           aria-label="ダーク"
-          startContent={
-            <Moon size={ICON_SIZE} className="text-muted-foreground" />
-          }
+          startContent={<MoonIcon className="size-4 text-muted-foreground" />}
         >
           <span>Dark</span>
         </DropdownItem>
@@ -70,7 +59,7 @@ const ThemeSwitcher = () => {
           key="system"
           aria-label="システムに合わせる"
           startContent={
-            <Laptop size={ICON_SIZE} className="text-muted-foreground" />
+            <ComputerDesktopIcon className="size-4 text-muted-foreground" />
           }
         >
           <span>System</span>
