@@ -18,7 +18,7 @@ const ThemeSwitcher = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button isIconOnly variant="light">
+        <Button isIconOnly aria-label="テーマを切り替え" variant="light">
           {theme === "light" ? (
             <Sun
               key="light"
