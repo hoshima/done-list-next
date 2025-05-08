@@ -6,6 +6,7 @@ import { Header } from "@/components/ui/header";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -44,6 +45,7 @@ export default function RootLayout({
             </div>
           </main>
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
