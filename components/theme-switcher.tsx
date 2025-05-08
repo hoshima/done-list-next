@@ -1,36 +1,24 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@heroui/button";
 import {
+  Dropdown,
+  DropdownTrigger,
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  DropdownItem,
+} from "@heroui/dropdown";
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 const ThemeSwitcher = () => {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   const ICON_SIZE = 16;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size={"sm"}>
+    <Dropdown>
+      <DropdownTrigger>
+        <Button isIconOnly variant="light">
           {theme === "light" ? (
             <Sun
               key="light"
@@ -51,27 +39,44 @@ const ThemeSwitcher = () => {
             />
           )}
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start">
-        <DropdownMenuRadioGroup
-          value={theme}
-          onValueChange={(e) => setTheme(e)}
+      </DropdownTrigger>
+      <DropdownMenu
+        disallowEmptySelection
+        aria-label="テーマを選択"
+        selectedKeys={theme}
+        selectionMode="single"
+        variant="light"
+        onAction={(key) => setTheme(key as string)}
+      >
+        <DropdownItem
+          key="light"
+          aria-label="ライト"
+          startContent={
+            <Sun size={ICON_SIZE} className="text-muted-foreground" />
+          }
         >
-          <DropdownMenuRadioItem className="flex gap-2" value="light">
-            <Sun size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>Light</span>
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem className="flex gap-2" value="dark">
-            <Moon size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>Dark</span>
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem className="flex gap-2" value="system">
-            <Laptop size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>System</span>
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <span>Light</span>
+        </DropdownItem>
+        <DropdownItem
+          key="dark"
+          aria-label="ダーク"
+          startContent={
+            <Moon size={ICON_SIZE} className="text-muted-foreground" />
+          }
+        >
+          <span>Dark</span>
+        </DropdownItem>
+        <DropdownItem
+          key="system"
+          aria-label="システムに合わせる"
+          startContent={
+            <Laptop size={ICON_SIZE} className="text-muted-foreground" />
+          }
+        >
+          <span>System</span>
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 
