@@ -39,7 +39,7 @@ export default function RootLayout({
             <div className="flex w-full flex-1 flex-col items-center gap-8 md:gap-20">
               <div className="container max-w-5xl">{children}</div>
 
-              <footer className="grid w-full place-items-center gap-8 border-t py-8 text-xs md:py-16">
+              <footer className="grid w-full place-items-center gap-8 border-t py-4 text-xs md:py-12">
                 <ThemeSwitcher />
               </footer>
             </div>
