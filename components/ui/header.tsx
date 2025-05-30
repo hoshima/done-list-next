@@ -16,6 +16,7 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
   const menuItems = [
     { label: "ホーム", href: "/home" },
     { label: "アカウント", href: "/settings/account" },
+    { label: "エクスポート", href: "/settings/export" },
   ];
 
   return (
