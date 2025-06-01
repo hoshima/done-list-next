@@ -65,6 +65,10 @@
   }
   body {
     @apply bg-background text-foreground;
+
+    /* https://ics.media/entry/200317/ */
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", Meiryo, sans-serif;
   }
 }
 

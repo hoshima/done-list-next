@@ -1,5 +1,4 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/ui/header";
@@ -20,18 +19,13 @@ export const metadata = {
     "やったことを記録して、あとで思い出すためのwebサイトです。「洗濯槽のカビ取り、前にやったのいつだっけ？」とかそういうときのための。",
 };
 
-const geistSans = Geist({
-  display: "swap",
-  subsets: ["latin"],
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={geistSans.className} suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground">
         <Providers>
           <Header>{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</Header>
