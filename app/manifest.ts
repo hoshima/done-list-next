@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "やったログ",
     short_name: "やったログ",
     description: "やったことをメモしよう",
-    start_url: "/",
+    start_url: "/home",
     display: "standalone",
     background_color: "#fafafa",
     theme_color: "#353535",
