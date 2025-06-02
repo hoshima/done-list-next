@@ -2,11 +2,10 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/ui/header";
-import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { Suspense } from "react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -28,7 +27,11 @@ export default function RootLayout({
     <html lang="ja" suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground">
         <Providers>
-          <Header>{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</Header>
+          <Header>
+            <Suspense>
+              <HeaderAuth />
+            </Suspense>
+          </Header>
 
           <main className="flex flex-col items-center py-4">
             <div className="flex w-full flex-1 flex-col items-center gap-8 md:gap-20">
