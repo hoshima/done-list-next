@@ -7,7 +7,8 @@
     "lint": "next lint",
     "fix:lint": "next lint --fix",
     "generate:type": "npx supabase gen types --project-id=igfboflygtixuqmmlagm --lang=typescript --schema public > app/types/database-generated.types.ts",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:browser": "vitest --workspace=vitest.workspace.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -39,17 +40,20 @@
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/browser": "^3.2.0",
     "eslint": "9.18.0",
     "eslint-config-next": "15.3.1",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "jsdom": "^26.1.0",
     "markuplint": "^4.11.4",
+    "playwright": "^1.52.0",
     "postcss": "8.4.49",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "3.4.17",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.7.2",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.1.2"
+    "vitest": "^3.1.2",
+    "vitest-browser-react": "^0.2.0"
   }
 }

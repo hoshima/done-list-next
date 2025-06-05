@@ -13,7 +13,13 @@ type Props = ComponentProps<typeof Form> & {
   task?: Task;
 };
 
-export function TaskForm({ children, action, task, ...props }: Props) {
+export function TaskForm({
+  children,
+  action,
+  task,
+  className,
+  ...props
+}: Props) {
   type Errors = {
     name?: string;
     date?: string;
@@ -25,11 +31,12 @@ export function TaskForm({ children, action, task, ...props }: Props) {
 
   return (
     <Form
-      className="w-full items-center justify-center space-y-4"
+      className={`w-full items-center justify-center space-y-4 ${className || ""}`}
       validationBehavior="native"
       validationErrors={errors}
       onReset={() => setSubmitted(null)}
       action={action}
+      {...props}
     >
       <div className="flex w-full flex-col gap-4 md:max-w-96">
         <Input
