@@ -21,6 +21,7 @@ export default async function ProtectedPage({
   }
 
   const query = (await searchParams)["query"]?.toString();
+  const page = parseInt((await searchParams)["page"]?.toString() || "1", 10);
 
   return (
     <>
@@ -30,7 +31,7 @@ export default async function ProtectedPage({
         </div>
 
         <Suspense fallback={<p>Loading...</p>}>
-          <TaskList query={query} />
+          <TaskList query={query} page={page} />
         </Suspense>
       </div>
 
