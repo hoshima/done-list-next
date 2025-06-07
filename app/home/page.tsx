@@ -1,4 +1,5 @@
 import FloatingActionButton from "@/components/fab";
+import TaskListSkeleton from "@/components/task-list-skeleton";
 import TaskList from "@/components/task-list";
 import Search from "@/components/ui/search";
 import { createClient } from "@/utils/supabase/server";
@@ -30,7 +31,7 @@ export default async function ProtectedPage({
           <Search query={query} />
         </div>
 
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={TaskListSkeleton()}>
           <TaskList query={query} page={page} />
         </Suspense>
       </div>
