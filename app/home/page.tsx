@@ -23,6 +23,7 @@ export default async function ProtectedPage({
 
   const query = (await searchParams)["query"]?.toString();
   const page = parseInt((await searchParams)["page"]?.toString() || "1", 10);
+  const suspenseKey = `${query || ""}-${page}`;
 
   return (
     <>
@@ -31,7 +32,7 @@ export default async function ProtectedPage({
           <Search query={query} />
         </div>
 
-        <Suspense fallback={TaskListSkeleton()}>
+        <Suspense key={suspenseKey} fallback={TaskListSkeleton()}>
           <TaskList query={query} page={page} />
         </Suspense>
       </div>
