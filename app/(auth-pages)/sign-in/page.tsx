@@ -1,4 +1,5 @@
-import { signInAction, signInWithGoogleAction } from "@/app/actions";
+import { signInAction } from "@/app/actions/sign-in";
+import { signInWithGoogleAction } from "@/app/actions/sign-in-google";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@heroui/input";

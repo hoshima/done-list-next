@@ -1,4 +1,4 @@
-import { updateTaskAction } from "@/app/actions";
+import { updateTaskAction } from "@/app/actions/update-task";
 import { createTaskId } from "@/app/types/branded.type";
 import { TaskForm } from "@/components/task-form";
 import { createClient } from "@/utils/supabase/server";

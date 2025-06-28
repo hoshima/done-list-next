@@ -1,6 +1,7 @@
 "use client";
 
-import { signOutAction, deleteAccountAction } from "@/app/actions";
+import { signOutAction } from "@/app/actions/sign-out";
+import { deleteAccountAction } from "@/app/actions/delete-account";
 import { Button } from "@heroui/button";
 
 export default function Account() {

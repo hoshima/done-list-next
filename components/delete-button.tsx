@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteTaskAction } from "@/app/actions";
+import { deleteTaskAction } from "@/app/actions/delete-task";
 import { TaskId } from "@/app/types/branded.type";
 import { Button } from "@heroui/button";
 

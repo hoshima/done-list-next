@@ -1,4 +1,4 @@
-import { createTaskAction } from "@/app/actions";
+import { createTaskAction } from "@/app/actions/create-task";
 import { TaskForm } from "@/components/task-form";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
