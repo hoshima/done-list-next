@@ -1,7 +1,5 @@
-"use client";
-
 import { signOutAction } from "@/app/actions/sign-out";
-import { deleteAccountAction } from "@/app/actions/delete-account";
+import { AccountDeleteButton } from "@/components/account-delete-button";
 import { Button } from "@heroui/button";
 
 export default function Account() {
@@ -24,21 +22,7 @@ export default function Account() {
           <p>登録されたデータがすべて削除されます。</p>
           <p>この操作は取り消しできません。</p>
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const confirm = window.confirm(
-              "この操作は取り消せません。よろしいですか？"
-            );
-            if (confirm) {
-              deleteAccountAction();
-            }
-          }}
-        >
-          <Button type="submit" variant="solid" color="danger">
-            アカウント削除
-          </Button>
-        </form>
+        <AccountDeleteButton />
       </div>
     </div>
   );
