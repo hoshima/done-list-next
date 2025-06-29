@@ -8,6 +8,7 @@ import { DeleteButton } from "@/components/delete-button";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { Task } from "@/app/types/task.type";
+import { SubmitButton } from "./submit-button";
 
 type Props = ComponentProps<typeof Form> & {
   task?: Task;
@@ -82,9 +83,7 @@ export function TaskForm({
           <Button variant="bordered" as={Link} href="/home">
             戻る
           </Button>
-          <Button color="primary" type="submit">
-            やった
-          </Button>
+          <SubmitButton>やった</SubmitButton>
         </div>
       </div>
     </Form>
