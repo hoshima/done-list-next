@@ -32,12 +32,9 @@ export default async function TaskList({
     countQuery = countQuery.like("name", `%${query}%`);
   }
 
-  const { count } = await countQuery;
-  const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
-
   // ページネーションを考慮した実際のデータ取得クエリ
   const offset = (page - 1) * ITEMS_PER_PAGE;
-  const q = supabase
+  let dataQuery = supabase
     .from("tasks")
     .select(`id, name, date, description`)
     .eq("user_id", user.id)
@@ -46,10 +43,12 @@ export default async function TaskList({
     .range(offset, offset + ITEMS_PER_PAGE - 1);
 
   if (query) {
-    void q.like("name", `%${query}%`);
+    dataQuery = dataQuery.like("name", `%${query}%`);
   }
 
-  const { data } = await q;
+  const [{ count }, { data }] = await Promise.all([countQuery, dataQuery]);
+
+  const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col gap-8">
