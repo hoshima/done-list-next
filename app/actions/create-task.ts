@@ -1,9 +1,9 @@
 "use server";
 
 import { encodedRedirect } from "@/utils/utils";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { TaskCreate } from "../types/task.type";
+import { TaskService } from "@/services/task.service";
 
 export const createTaskAction = async (formData: FormData) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,10 +26,10 @@ export const createTaskAction = async (formData: FormData) => {
   }
 
   try {
-    const supabase = await createClient();
-    await supabase.from("tasks").insert(taskData);
+    await TaskService.createTask(taskData);
   } catch (error) {
     console.log("error", error);
+    return encodedRedirect("error", "/new", "タスクの作成に失敗しました");
   }
 
   return redirect("/home");

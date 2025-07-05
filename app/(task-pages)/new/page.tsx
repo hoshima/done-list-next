@@ -1,18 +1,9 @@
 import { createTaskAction } from "@/app/actions/create-task";
 import { TaskForm } from "@/components/task-form";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { AuthService } from "@/services/auth.service";
 
 export default async function App() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/sign-in");
-  }
+  await AuthService.requireAuth();
 
   return (
     <div className="flex flex-col items-center gap-4">

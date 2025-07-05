@@ -1,8 +1,10 @@
 import { updateTaskAction } from "@/app/actions/update-task";
 import { createTaskId } from "@/app/types/branded.type";
 import { TaskForm } from "@/components/task-form";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { AuthService } from "@/services/auth.service";
+import { TaskService } from "@/services/task.service";
+import { encodedRedirect } from "@/utils/utils";
 
 export default async function EditTask({
   params,
@@ -16,21 +18,16 @@ export default async function EditTask({
   }
   const updateTaskActionWithId = updateTaskAction.bind(null, createTaskId(id));
 
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return redirect("/sign-in");
-  }
-
+  await AuthService.requireAuth();
   const taskId = createTaskId(id);
-  const { data: task } = await supabase
-    .from("tasks")
-    .select()
-    .eq("id", taskId)
-    .single();
+
+  let task;
+  try {
+    task = await TaskService.getTaskById(taskId);
+  } catch (error) {
+    console.error("Task not found:", error);
+    return encodedRedirect("error", `/home`, "タスクの取得に失敗しました");
+  }
 
   if (!task) {
     return redirect("/home");

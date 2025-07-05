@@ -1,14 +1,10 @@
 import { signOutAction } from "@/app/actions/sign-out";
 import Link from "next/link";
 import { Button } from "@heroui/button";
-import { createClient } from "@/utils/supabase/server";
+import { AuthService } from "@/services/auth.service";
 
 export default async function AuthButton() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { user } = await AuthService.getCurrentUser();
 
   return user ? (
     <div className="flex items-center gap-4">

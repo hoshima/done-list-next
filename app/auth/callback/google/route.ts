@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-// The client you created from the Server-Side Auth instructions
-import { createClient } from "@/utils/supabase/server";
+import { AuthService } from "@/services/auth.service";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -9,9 +8,8 @@ export async function GET(request: Request) {
   const next = searchParams.get("next") ?? "/";
 
   if (code) {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
+    try {
+      await AuthService.exchangeCodeForSession(code);
       const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {
@@ -22,6 +20,8 @@ export async function GET(request: Request) {
       } else {
         return NextResponse.redirect(`${origin}${next}`);
       }
+    } catch (error) {
+      console.error("Error exchanging code for session:", error);
     }
   }
 

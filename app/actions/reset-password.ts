@@ -1,11 +1,9 @@
 "use server";
 
 import { encodedRedirect } from "@/utils/utils";
-import { createClient } from "@/utils/supabase/server";
+import { AuthService } from "@/services/auth.service";
 
 export const resetPasswordAction = async (formData: FormData) => {
-  const supabase = await createClient();
-
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
@@ -25,11 +23,9 @@ export const resetPasswordAction = async (formData: FormData) => {
     );
   }
 
-  const { error } = await supabase.auth.updateUser({
-    password: password,
-  });
-
-  if (error) {
+  try {
+    await AuthService.updatePassword(password);
+  } catch {
     encodedRedirect(
       "error",
       "/protected/reset-password",

@@ -2,8 +2,7 @@ import FloatingActionButton from "@/components/fab";
 import TaskListSkeleton from "@/components/task-list-skeleton";
 import TaskList from "@/components/task-list";
 import Search from "@/components/ui/search";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { AuthService } from "@/services/auth.service";
 import { Suspense } from "react";
 
 export default async function ProtectedPage({
@@ -11,15 +10,7 @@ export default async function ProtectedPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/sign-in");
-  }
+  await AuthService.requireAuth();
 
   const query = (await searchParams)["query"]?.toString();
   const page = parseInt((await searchParams)["page"]?.toString() || "1", 10);

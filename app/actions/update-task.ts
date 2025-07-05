@@ -1,10 +1,10 @@
 "use server";
 
 import { encodedRedirect } from "@/utils/utils";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Task } from "../types/task.type";
-import { createTaskId, TaskId } from "../types/branded.type";
+import { TaskId } from "../types/branded.type";
+import { TaskService } from "@/services/task.service";
 
 export const updateTaskAction = async (id: TaskId, formData: FormData) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,17 +27,10 @@ export const updateTaskAction = async (id: TaskId, formData: FormData) => {
   }
 
   try {
-    const supabase = await createClient();
-    await supabase
-      .from("tasks")
-      .update({
-        ...taskData,
-        id: createTaskId(id),
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", id);
+    await TaskService.updateTask(id, taskData);
   } catch (error) {
     console.log("error", error);
+    return encodedRedirect("error", `/${id}`, "タスクの更新に失敗しました");
   }
 
   return redirect("/home");
