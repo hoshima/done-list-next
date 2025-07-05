@@ -1,10 +1,19 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor, cleanup } from "@testing-library/react";
+import { screen, waitFor, cleanup } from "@testing-library/react";
 import { redirect } from "next/navigation";
 import TaskList from "../task-list";
 import { Task } from "@/app/types/task.type";
-import { createTaskId } from "@/app/types/branded.type";
-import { User } from "@supabase/supabase-js";
+import {
+  createMockUser,
+  createMockTask,
+  createMockTasks,
+  mockTasks,
+  setupMocksForAuthentication,
+  setupMocksForAuthenticationFailure,
+  setupMocksForTasksError,
+  setupCompleteAuthenticatedMock,
+  renderAsyncComponent,
+} from "./test-utils";
 
 // Mock Next.js navigation
 vi.mock("next/navigation", () => ({
@@ -54,44 +63,22 @@ vi.mock("../pagination", () => ({
   ),
 }));
 
+// Type-safe mocks
 const mockRedirect = vi.mocked(redirect);
 
-// Dynamic imports for mocked services
-const mockAuthService = async () => {
-  const { AuthService } = await import("@/services/auth.service");
-  return vi.mocked(AuthService);
+// Get mocked services
+const { AuthService } = await import("@/services/auth.service");
+const { TaskService } = await import("@/services/task.service");
+const mockAuthService = vi.mocked(AuthService);
+const mockTaskService = vi.mocked(TaskService);
+
+// Test helper function
+const renderTaskList = async (props: {
+  query?: string | string[];
+  page?: number;
+}) => {
+  return renderAsyncComponent(TaskList(props));
 };
-
-const mockTaskService = async () => {
-  const { TaskService } = await import("@/services/task.service");
-  return vi.mocked(TaskService);
-};
-
-// Mock User object
-const createMockUser = (id: string): User => ({
-  id,
-  email: "test@example.com",
-  app_metadata: {},
-  user_metadata: {},
-  aud: "authenticated",
-  created_at: "2024-01-01T00:00:00.000Z",
-});
-
-// Sample test data - using correct Task type
-const mockTasks: Task[] = [
-  {
-    id: createTaskId("1"),
-    name: "Test Task 1",
-    date: "2024-01-01",
-    description: "First test task",
-  },
-  {
-    id: createTaskId("2"),
-    name: "Test Task 2",
-    date: "2024-01-02",
-    description: "Second test task",
-  },
-];
 
 describe("TaskList", () => {
   beforeEach(() => {
@@ -103,37 +90,25 @@ describe("TaskList", () => {
   });
 
   it("redirects to sign-in when user is not authenticated", async () => {
-    const AuthService = await mockAuthService();
-    AuthService.requireAuth.mockImplementation(() => {
-      mockRedirect("/sign-in");
-      // redirect() は実際には例外を投げて実行を停止するため、
-      // テストでもそれをシミュレートする
-      throw new Error("NEXT_REDIRECT");
-    });
+    setupMocksForAuthenticationFailure(mockAuthService);
 
-    try {
+    await expect(async () => {
       await TaskList({ query: undefined, page: 1 });
-    } catch (error) {
-      // リダイレクトによる例外をキャッチ
-      expect(error).toEqual(new Error("NEXT_REDIRECT"));
-    }
+    }).rejects.toThrow("NEXT_REDIRECT");
 
     expect(mockRedirect).toHaveBeenCalledWith("/sign-in");
   });
 
   it("renders tasks correctly when authenticated", async () => {
-    const AuthService = await mockAuthService();
-    const TaskService = await mockTaskService();
+    setupCompleteAuthenticatedMock(
+      mockAuthService,
+      mockTaskService,
+      { id: "user-1" },
+      mockTasks,
+      2
+    );
 
-    AuthService.requireAuth.mockResolvedValue(createMockUser("user-1"));
-    TaskService.getTasks.mockResolvedValue({
-      data: mockTasks,
-      count: 2,
-      error: null,
-    });
-
-    const result = await TaskList({ query: undefined, page: 1 });
-    render(result as React.ReactElement);
+    await renderTaskList({ query: undefined, page: 1 });
 
     await waitFor(() => {
       expect(screen.getByTestId("task-card-1")).toBeInTheDocument();
@@ -142,18 +117,15 @@ describe("TaskList", () => {
   });
 
   it("renders empty state when no tasks", async () => {
-    const AuthService = await mockAuthService();
-    const TaskService = await mockTaskService();
+    setupCompleteAuthenticatedMock(
+      mockAuthService,
+      mockTaskService,
+      { id: "user-1" },
+      [],
+      0
+    );
 
-    AuthService.requireAuth.mockResolvedValue(createMockUser("user-1"));
-    TaskService.getTasks.mockResolvedValue({
-      data: [],
-      count: 0,
-      error: null,
-    });
-
-    const result = await TaskList({ query: undefined, page: 1 });
-    render(result as React.ReactElement);
+    await renderTaskList({ query: undefined, page: 1 });
 
     await waitFor(() => {
       expect(screen.getByText("タスクがありません")).toBeInTheDocument();
@@ -161,18 +133,18 @@ describe("TaskList", () => {
   });
 
   it("handles search functionality", async () => {
-    const AuthService = await mockAuthService();
-    const TaskService = await mockTaskService();
+    const searchTasks = [
+      createMockTask({ id: "1", name: "Test Task 1", date: "2024-01-01" }),
+    ];
+    setupCompleteAuthenticatedMock(
+      mockAuthService,
+      mockTaskService,
+      { id: "user-1" },
+      searchTasks,
+      1
+    );
 
-    AuthService.requireAuth.mockResolvedValue(createMockUser("user-1"));
-    TaskService.getTasks.mockResolvedValue({
-      data: [mockTasks[0]],
-      count: 1,
-      error: null,
-    });
-
-    const result = await TaskList({ query: "Test Task 1", page: 1 });
-    render(result as React.ReactElement);
+    await renderTaskList({ query: "Test Task 1", page: 1 });
 
     await waitFor(() => {
       expect(screen.getByTestId("task-card-1")).toBeInTheDocument();
@@ -181,18 +153,15 @@ describe("TaskList", () => {
   });
 
   it("handles empty search results", async () => {
-    const AuthService = await mockAuthService();
-    const TaskService = await mockTaskService();
+    setupCompleteAuthenticatedMock(
+      mockAuthService,
+      mockTaskService,
+      { id: "user-1" },
+      [],
+      0
+    );
 
-    AuthService.requireAuth.mockResolvedValue(createMockUser("user-1"));
-    TaskService.getTasks.mockResolvedValue({
-      data: [],
-      count: 0,
-      error: null,
-    });
-
-    const result = await TaskList({ query: "nonexistent task", page: 1 });
-    render(result as React.ReactElement);
+    await renderTaskList({ query: "nonexistent task", page: 1 });
 
     await waitFor(() => {
       expect(
@@ -202,21 +171,76 @@ describe("TaskList", () => {
   });
 
   it("handles pagination correctly", async () => {
-    const AuthService = await mockAuthService();
-    const TaskService = await mockTaskService();
+    const paginatedTasks = [
+      createMockTask({ id: "2", name: "Test Task 2", date: "2024-01-02" }),
+    ];
+    setupCompleteAuthenticatedMock(
+      mockAuthService,
+      mockTaskService,
+      { id: "user-1" },
+      paginatedTasks,
+      20
+    );
 
-    AuthService.requireAuth.mockResolvedValue(createMockUser("user-1"));
-    TaskService.getTasks.mockResolvedValue({
-      data: [mockTasks[1]],
-      count: 20,
-      error: null,
-    });
-
-    const result = await TaskList({ query: undefined, page: 2 });
-    render(result as React.ReactElement);
+    await renderTaskList({ query: undefined, page: 2 });
 
     await waitFor(() => {
       expect(screen.getByText("Page 2 of 2")).toBeInTheDocument();
+    });
+  });
+
+  describe("Error handling", () => {
+    it("handles task service errors gracefully", async () => {
+      setupMocksForAuthentication(
+        mockAuthService,
+        createMockUser({ id: "user-1" })
+      );
+      setupMocksForTasksError(mockTaskService, "Database connection failed");
+
+      await renderTaskList({ query: undefined, page: 1 });
+
+      // Component should handle errors gracefully and show empty state
+      await waitFor(() => {
+        expect(screen.getByText("タスクがありません")).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("Edge cases", () => {
+    it("handles array query parameter", async () => {
+      setupCompleteAuthenticatedMock(
+        mockAuthService,
+        mockTaskService,
+        { id: "user-1" },
+        mockTasks,
+        2
+      );
+
+      const result = await TaskList({ query: ["search", "term"], page: 1 });
+      await renderAsyncComponent(Promise.resolve(result));
+
+      await waitFor(() => {
+        expect(screen.getByTestId("task-card-1")).toBeInTheDocument();
+      });
+    });
+
+    it("handles page parameter correctly", async () => {
+      const testTasks = createMockTasks(1, { name: "Paginated Task" });
+      setupCompleteAuthenticatedMock(
+        mockAuthService,
+        mockTaskService,
+        { id: "user-1" },
+        testTasks,
+        15
+      );
+
+      await renderTaskList({ page: 2 });
+
+      expect(mockTaskService.getTasks).toHaveBeenCalledWith("user-1", {
+        page: 2,
+        itemsPerPage: 10,
+        query: undefined,
+      });
     });
   });
 });
