@@ -1,7 +1,7 @@
-import { heroui } from "@heroui/theme";
-import type { Config } from "tailwindcss";
+const { heroui } = require("@heroui/theme");
 
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -73,6 +73,4 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), heroui()],
-} satisfies Config;
-
-export default config;
+};
