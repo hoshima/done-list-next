@@ -1,4 +1,9 @@
 import { ExportButton } from "@/components/export-button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "エクスポート",
+};
 
 export default function Account() {
   return (

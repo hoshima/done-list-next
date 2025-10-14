@@ -4,6 +4,11 @@ import TaskList from "@/components/task-list";
 import Search from "@/components/ui/search";
 import { AuthService } from "@/services/auth.service";
 import { Suspense } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ホーム",
+};
 
 export default async function ProtectedPage({
   searchParams,

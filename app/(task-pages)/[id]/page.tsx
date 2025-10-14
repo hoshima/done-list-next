@@ -5,6 +5,35 @@ import { redirect } from "next/navigation";
 import { AuthService } from "@/services/auth.service";
 import { TaskService } from "@/services/task.service";
 import { encodedRedirect } from "@/utils/utils";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const p = await params;
+  const id = p.id;
+  const defaultMetadata = { title: "編集" };
+
+  if (!id || typeof id !== "string") {
+    return defaultMetadata;
+  }
+
+  const taskId = createTaskId(id);
+  try {
+    const task = await TaskService.getTaskById(taskId);
+    if (!task) {
+      return defaultMetadata;
+    }
+
+    return {
+      title: task.name,
+    };
+  } catch (error) {
+    return defaultMetadata;
+  }
+}
 
 export default async function EditTask({
   params,

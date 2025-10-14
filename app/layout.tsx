@@ -14,7 +14,10 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "やったログ",
+  title: {
+    default: "やったログ",
+    template: "%s | やったログ",
+  },
   description:
     "やったことを記録して、あとで思い出すためのwebサイトです。「洗濯槽のカビ取り、前にやったのいつだっけ？」とかそういうときのための。",
 };

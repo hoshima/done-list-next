@@ -3,6 +3,11 @@ import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@heroui/input";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "新規登録",
+};
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;

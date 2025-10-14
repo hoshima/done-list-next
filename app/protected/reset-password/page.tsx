@@ -2,6 +2,11 @@ import { resetPasswordAction } from "@/app/actions/reset-password";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@heroui/input";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "パスワード再設定",
+};
 
 export default async function ResetPassword(props: {
   searchParams: Promise<Message>;

@@ -3,6 +3,11 @@ import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@heroui/input";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "パスワードをリセット",
+};
 
 export default async function ForgotPassword(props: {
   searchParams: Promise<Message>;

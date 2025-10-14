@@ -6,6 +6,11 @@ import { Input } from "@heroui/input";
 import Link from "next/link";
 import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ログイン",
+};
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
