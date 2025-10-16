@@ -12,7 +12,12 @@ export default async function TaskList({
   query?: string | string[];
   page?: number;
 }) {
-  const user = await AuthService.requireAuth();
+  await AuthService.requireAuth();
+
+  const { user } = await AuthService.getCurrentUser();
+  if (!user) {
+    return null;
+  }
 
   const { data, count } = await TaskService.getTasks(user.id, {
     page,

@@ -22,18 +22,24 @@ export class AuthService {
   }
 
   /**
+   * 現在のユーザーのJWTクレームを取得する
+   */
+  static async getClaims() {
+    const supabase = await this.getSupabaseClient();
+    return supabase.auth.getClaims();
+  }
+
+  /**
    * 認証が必要なページでユーザーをチェックし、未認証の場合はリダイレクト
    * @param redirectTo リダイレクト先のパス（デフォルト: '/sign-in'）
    * @returns 認証済みのユーザー
    */
   static async requireAuth(redirectTo: string = "/sign-in") {
-    const { user, error } = await this.getCurrentUser();
+    const { error } = await this.getClaims();
 
-    if (!user || error) {
-      return redirect(redirectTo);
+    if (error) {
+      redirect(redirectTo);
     }
-
-    return user;
   }
 
   /**
