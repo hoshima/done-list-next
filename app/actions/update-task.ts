@@ -33,5 +33,5 @@ export const updateTaskAction = async (id: TaskId, formData: FormData) => {
     return encodedRedirect("error", `/${id}`, "タスクの更新に失敗しました");
   }
 
-  return redirect("/home");
+  redirect("/home");
 };

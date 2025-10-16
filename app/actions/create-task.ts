@@ -32,5 +32,5 @@ export const createTaskAction = async (formData: FormData) => {
     return encodedRedirect("error", "/new", "タスクの作成に失敗しました");
   }
 
-  return redirect("/home");
+  redirect("/home");
 };

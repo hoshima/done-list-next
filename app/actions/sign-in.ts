@@ -16,5 +16,5 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/sign-in", errorMessage);
   }
 
-  return redirect("/home");
+  redirect("/home");
 };

@@ -13,5 +13,5 @@ export const deleteTaskAction = async (id: TaskId) => {
     return encodedRedirect("error", `/${id}`, "タスクの削除に失敗しました");
   }
 
-  return redirect("/home");
+  redirect("/home");
 };

@@ -51,7 +51,7 @@ export class AuthService {
     const { user } = await this.getCurrentUser();
 
     if (user) {
-      return redirect(redirectTo);
+      redirect(redirectTo);
     }
   }
 

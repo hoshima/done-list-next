@@ -11,5 +11,5 @@ export const deleteAccountAction = async () => {
     throw new Error("アカウントの削除に失敗しました");
   }
 
-  return redirect("/");
+  redirect("/");
 };

@@ -43,7 +43,7 @@ export default async function EditTask({
   const p = await params;
   const id = p.id;
   if (!id || typeof id !== "string") {
-    return redirect("/home");
+    redirect("/home");
   }
   const updateTaskActionWithId = updateTaskAction.bind(null, createTaskId(id));
 
@@ -59,7 +59,7 @@ export default async function EditTask({
   }
 
   if (!task) {
-    return redirect("/home");
+    redirect("/home");
   }
 
   return (
