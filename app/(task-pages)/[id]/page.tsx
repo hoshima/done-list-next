@@ -4,7 +4,6 @@ import { TaskForm } from "@/components/task-form";
 import { redirect } from "next/navigation";
 import { AuthService } from "@/services/auth.service";
 import { TaskService } from "@/services/task.service";
-import { encodedRedirect } from "@/utils/utils";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -53,9 +52,9 @@ export default async function EditTask({
   let task;
   try {
     task = await TaskService.getTaskById(taskId);
-  } catch (error) {
-    console.error("Task not found:", error);
-    return encodedRedirect("error", `/home`, "タスクの取得に失敗しました");
+  } catch {
+    console.error("Task not found");
+    redirect("/home");
   }
 
   if (!task) {
