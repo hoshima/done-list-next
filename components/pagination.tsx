@@ -35,11 +35,8 @@ export default function Pagination({
       total={totalPages}
       page={currentPage}
       onChange={handlePageChange}
-      showShadow
       showControls
-      size="md"
       variant="bordered"
-      className="flex justify-center"
     />
   );
 }
