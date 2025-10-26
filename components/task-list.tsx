@@ -12,14 +12,9 @@ export default async function TaskList({
   query?: string | string[];
   page?: number;
 }) {
-  await AuthService.requireAuth();
+  const userId = await AuthService.requireAuth();
 
-  const { user } = await AuthService.getCurrentUser();
-  if (!user) {
-    return null;
-  }
-
-  const { data, count } = await TaskService.getTasks(user.id, {
+  const { data, count } = await TaskService.getTasks(userId, {
     page,
     itemsPerPage: ITEMS_PER_PAGE,
     query: typeof query === "string" ? query : undefined,
