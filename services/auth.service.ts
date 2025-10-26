@@ -32,14 +32,16 @@ export class AuthService {
   /**
    * 認証が必要なページでユーザーをチェックし、未認証の場合はリダイレクト
    * @param redirectTo リダイレクト先のパス（デフォルト: '/sign-in'）
-   * @returns 認証済みのユーザー
+   * @returns 認証済みのユーザーID
    */
   static async requireAuth(redirectTo: string = "/sign-in") {
-    const { error } = await this.getClaims();
+    const { data, error } = await this.getClaims();
 
-    if (error) {
+    if (error || !data) {
       redirect(redirectTo);
     }
+
+    return data.claims?.sub;
   }
 
   /**
