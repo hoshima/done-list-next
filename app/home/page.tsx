@@ -17,8 +17,9 @@ export default async function ProtectedPage({
 }) {
   await AuthService.requireAuth();
 
-  const query = (await searchParams)["query"]?.toString();
-  const page = parseInt((await searchParams)["page"]?.toString() || "1", 10);
+  const params = await searchParams;
+  const query = params["query"]?.toString();
+  const page = parseInt(params["page"]?.toString() || "1", 10);
   const suspenseKey = `${query || ""}-${page}`;
 
   return (
