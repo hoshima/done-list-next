@@ -2,13 +2,23 @@ import { signOutAction } from "@/app/actions/sign-out";
 import Link from "next/link";
 import { Button } from "@heroui/button";
 import { AuthService } from "@/services/auth.service";
+import { Suspense } from "react";
+import { Skeleton } from "@heroui/skeleton";
 
-export default async function AuthButton() {
+async function UserEmail() {
   const { user } = await AuthService.getCurrentUser();
 
-  return user ? (
+  return <span>{user?.email}</span>;
+}
+
+export default async function AuthButton() {
+  const userId = await AuthService.getClaims();
+
+  return userId ? (
     <div className="flex items-center gap-4">
-      {user.email}
+      <Suspense fallback={<Skeleton className="h-5 w-48 rounded-lg" />}>
+        <UserEmail />
+      </Suspense>
       <form action={signOutAction}>
         <Button type="submit" variant="ghost">
           ログアウト
