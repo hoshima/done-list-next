@@ -29,7 +29,7 @@ export default async function ProtectedPage({
           <Search query={query} />
         </div>
 
-        <Suspense key={suspenseKey} fallback={TaskListSkeleton()}>
+        <Suspense key={suspenseKey} fallback={<TaskListSkeleton />}>
           <TaskList query={query} page={page} />
         </Suspense>
       </div>
