@@ -13,9 +13,7 @@ type MockAuthService = {
   requireAuth: ReturnType<typeof vi.fn>;
 };
 
-type MockTaskService = {
-  getTasks: ReturnType<typeof vi.fn>;
-};
+type MockGetTasks = ReturnType<typeof vi.fn>;
 
 // Task service response type
 type TaskServiceResponse = {
@@ -117,16 +115,16 @@ export const setupMocksForAuthentication = (
 
 /**
  * Sets up task service mock to return successful response
- * @param mockTaskService - Mocked task service
+ * @param mockGetTasks - Mocked getTasks function
  * @param data - Task data to return
  * @param count - Total count of tasks
  */
 export const setupMocksForTasks = (
-  mockTaskService: MockTaskService,
+  mockGetTasks: MockGetTasks,
   data: Task[],
   count: number
 ) => {
-  mockTaskService.getTasks.mockResolvedValue({
+  mockGetTasks.mockResolvedValue({
     data,
     count,
     error: null,
@@ -135,14 +133,14 @@ export const setupMocksForTasks = (
 
 /**
  * Sets up task service mock to return error response
- * @param mockTaskService - Mocked task service
+ * @param mockGetTasks - Mocked getTasks function
  * @param error - Error message to return
  */
 export const setupMocksForTasksError = (
-  mockTaskService: MockTaskService,
+  mockGetTasks: MockGetTasks,
   error: string
 ) => {
-  mockTaskService.getTasks.mockResolvedValue({
+  mockGetTasks.mockResolvedValue({
     data: null,
     count: null,
     error,
@@ -190,21 +188,21 @@ export const renderAsyncComponent = async (
 /**
  * Creates a complete mock setup for authenticated user with tasks
  * @param mockAuthService - Mocked authentication service
- * @param mockTaskService - Mocked task service
+ * @param mockGetTasks - Mocked getTasks function
  * @param userOptions - User options for mock
  * @param tasks - Tasks to return
  * @param count - Total count of tasks
  */
 export const setupCompleteAuthenticatedMock = (
   mockAuthService: MockAuthService,
-  mockTaskService: MockTaskService,
+  mockGetTasks: MockGetTasks,
   userOptions: TestUserOptions = {},
   tasks: Task[] = [],
   count: number = tasks.length
 ) => {
   const user = createMockUser(userOptions);
   setupMocksForAuthentication(mockAuthService, user);
-  setupMocksForTasks(mockTaskService, tasks, count);
+  setupMocksForTasks(mockGetTasks, tasks, count);
   return user;
 };
 

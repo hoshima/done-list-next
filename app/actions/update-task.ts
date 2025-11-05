@@ -4,7 +4,7 @@ import { encodedRedirect } from "@/utils/utils";
 import { redirect } from "next/navigation";
 import { Task } from "../types/task.type";
 import { TaskId } from "../types/branded.type";
-import { TaskService } from "@/services/task.service";
+import { updateTask } from "@/services/task.service";
 
 export const updateTaskAction = async (id: TaskId, formData: FormData) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,7 +27,7 @@ export const updateTaskAction = async (id: TaskId, formData: FormData) => {
   }
 
   try {
-    await TaskService.updateTask(id, taskData);
+    await updateTask(id, taskData);
   } catch (error) {
     console.log("error", error);
     return encodedRedirect("error", `/${id}`, "タスクの更新に失敗しました");

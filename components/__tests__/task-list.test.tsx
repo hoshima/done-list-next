@@ -28,9 +28,7 @@ vi.mock("@/services/auth.service", () => ({
 }));
 
 vi.mock("@/services/task.service", () => ({
-  TaskService: {
-    getTasks: vi.fn(),
-  },
+  getTasks: vi.fn(),
 }));
 
 // Mock child components
@@ -68,9 +66,9 @@ const mockRedirect = vi.mocked(redirect);
 
 // Get mocked services
 const { AuthService } = await import("@/services/auth.service");
-const { TaskService } = await import("@/services/task.service");
+const { getTasks } = await import("@/services/task.service");
 const mockAuthService = vi.mocked(AuthService);
-const mockTaskService = vi.mocked(TaskService);
+const mockGetTasks = vi.mocked(getTasks);
 
 // Test helper function
 const renderTaskList = async (props: {
@@ -102,7 +100,7 @@ describe("TaskList", () => {
   it("renders tasks correctly when authenticated", async () => {
     setupCompleteAuthenticatedMock(
       mockAuthService,
-      mockTaskService,
+      mockGetTasks,
       { id: "user-1" },
       mockTasks,
       2
@@ -119,7 +117,7 @@ describe("TaskList", () => {
   it("renders empty state when no tasks", async () => {
     setupCompleteAuthenticatedMock(
       mockAuthService,
-      mockTaskService,
+      mockGetTasks,
       { id: "user-1" },
       [],
       0
@@ -138,7 +136,7 @@ describe("TaskList", () => {
     ];
     setupCompleteAuthenticatedMock(
       mockAuthService,
-      mockTaskService,
+      mockGetTasks,
       { id: "user-1" },
       searchTasks,
       1
@@ -155,7 +153,7 @@ describe("TaskList", () => {
   it("handles empty search results", async () => {
     setupCompleteAuthenticatedMock(
       mockAuthService,
-      mockTaskService,
+      mockGetTasks,
       { id: "user-1" },
       [],
       0
@@ -176,7 +174,7 @@ describe("TaskList", () => {
     ];
     setupCompleteAuthenticatedMock(
       mockAuthService,
-      mockTaskService,
+      mockGetTasks,
       { id: "user-1" },
       paginatedTasks,
       20
@@ -195,7 +193,7 @@ describe("TaskList", () => {
         mockAuthService,
         createMockUser({ id: "user-1" })
       );
-      setupMocksForTasksError(mockTaskService, "Database connection failed");
+      setupMocksForTasksError(mockGetTasks, "Database connection failed");
 
       await renderTaskList({ query: undefined, page: 1 });
 
@@ -210,7 +208,7 @@ describe("TaskList", () => {
     it("handles array query parameter", async () => {
       setupCompleteAuthenticatedMock(
         mockAuthService,
-        mockTaskService,
+        mockGetTasks,
         { id: "user-1" },
         mockTasks,
         2
@@ -228,7 +226,7 @@ describe("TaskList", () => {
       const testTasks = createMockTasks(1, { name: "Paginated Task" });
       setupCompleteAuthenticatedMock(
         mockAuthService,
-        mockTaskService,
+        mockGetTasks,
         { id: "user-1" },
         testTasks,
         15
@@ -236,11 +234,14 @@ describe("TaskList", () => {
 
       await renderTaskList({ page: 2 });
 
-      expect(mockTaskService.getTasks).toHaveBeenCalledWith("user-1", {
-        page: 2,
-        itemsPerPage: 10,
-        query: undefined,
-      });
+      expect(mockGetTasks).toHaveBeenCalledWith(
+        expect.objectContaining({ id: "user-1" }),
+        {
+          page: 2,
+          itemsPerPage: 10,
+          query: undefined,
+        }
+      );
     });
   });
 });

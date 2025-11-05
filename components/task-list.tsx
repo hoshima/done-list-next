@@ -1,7 +1,7 @@
 import TaskCard from "./task-card";
 import Pagination from "./pagination";
 import { AuthService } from "@/services/auth.service";
-import { TaskService } from "@/services/task.service";
+import { getTasks } from "@/services/task.service";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -14,7 +14,7 @@ export default async function TaskList({
 }) {
   const userId = await AuthService.requireAuth();
 
-  const { data, count } = await TaskService.getTasks(userId, {
+  const { data, count } = await getTasks(userId, {
     page,
     itemsPerPage: ITEMS_PER_PAGE,
     query: typeof query === "string" ? query : undefined,

@@ -3,8 +3,8 @@ import { createTaskId } from "@/app/types/branded.type";
 import { TaskForm } from "@/components/task-form";
 import { redirect } from "next/navigation";
 import { AuthService } from "@/services/auth.service";
-import { TaskService } from "@/services/task.service";
 import { Metadata } from "next";
+import { getTaskById } from "@/services/task.service";
 
 export async function generateMetadata({
   params,
@@ -21,7 +21,7 @@ export async function generateMetadata({
 
   const taskId = createTaskId(id);
   try {
-    const task = await TaskService.getTaskById(taskId);
+    const task = await getTaskById(taskId);
     if (!task) {
       return defaultMetadata;
     }
@@ -51,7 +51,7 @@ export default async function EditTask({
 
   let task;
   try {
-    task = await TaskService.getTaskById(taskId);
+    task = await getTaskById(taskId);
   } catch {
     console.error("Task not found");
     redirect("/home");

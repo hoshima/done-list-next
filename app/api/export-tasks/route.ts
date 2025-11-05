@@ -1,5 +1,5 @@
 import { AuthService } from "@/services/auth.service";
-import { TaskService } from "@/services/task.service";
+import { getAllTasksForUser } from "@/services/task.service";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +14,7 @@ export async function GET() {
       });
     }
 
-    const data = await TaskService.getAllTasksForUser(user.user.id);
+    const data = await getAllTasksForUser(user.user.id);
 
     return new Response(JSON.stringify(data), {
       status: 200,
