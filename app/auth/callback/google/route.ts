@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AuthService } from "@/services/auth.service";
+import { exchangeCodeForSession } from "@/services/auth.service";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 
   if (code) {
     try {
-      await AuthService.exchangeCodeForSession(code);
+      await exchangeCodeForSession(code);
       const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {

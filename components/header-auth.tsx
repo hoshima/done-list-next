@@ -1,18 +1,18 @@
 import { signOutAction } from "@/app/actions/sign-out";
 import Link from "next/link";
 import { Button } from "@heroui/button";
-import { AuthService } from "@/services/auth.service";
+import { getCurrentUser, getClaims } from "@/services/auth.service";
 import { Suspense } from "react";
 import { Skeleton } from "@heroui/skeleton";
 
 async function UserEmail() {
-  const { user } = await AuthService.getCurrentUser();
+  const { user } = await getCurrentUser();
 
   return <span>{user?.email}</span>;
 }
 
 export default async function AuthButton() {
-  const userId = await AuthService.getClaims();
+  const userId = await getClaims();
 
   return userId ? (
     <div className="flex items-center gap-4">

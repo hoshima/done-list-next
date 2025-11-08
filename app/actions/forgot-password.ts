@@ -2,7 +2,7 @@
 
 import { encodedRedirect } from "@/utils/utils";
 import { redirect } from "next/navigation";
-import { AuthService } from "@/services/auth.service";
+import { resetPasswordForEmail } from "@/services/auth.service";
 
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -13,7 +13,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   }
 
   try {
-    await AuthService.resetPasswordForEmail(email);
+    await resetPasswordForEmail(email);
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Could not reset password";

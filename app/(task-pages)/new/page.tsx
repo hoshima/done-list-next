@@ -1,6 +1,6 @@
 import { createTaskAction } from "@/app/actions/create-task";
 import { TaskForm } from "@/components/task-form";
-import { AuthService } from "@/services/auth.service";
+import { requireAuth } from "@/services/auth.service";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function App() {
-  await AuthService.requireAuth();
+  await requireAuth();
 
   return (
     <div className="flex flex-col items-center gap-4">

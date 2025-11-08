@@ -2,7 +2,7 @@ import { updateTaskAction } from "@/app/actions/update-task";
 import { createTaskId } from "@/app/types/branded.type";
 import { TaskForm } from "@/components/task-form";
 import { redirect } from "next/navigation";
-import { AuthService } from "@/services/auth.service";
+import { requireAuth } from "@/services/auth.service";
 import { Metadata } from "next";
 import { getTaskById } from "@/services/task.service";
 
@@ -46,7 +46,7 @@ export default async function EditTask({
   }
   const updateTaskActionWithId = updateTaskAction.bind(null, createTaskId(id));
 
-  await AuthService.requireAuth();
+  await requireAuth();
   const taskId = createTaskId(id);
 
   let task;

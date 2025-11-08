@@ -1,9 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { AuthService } from "@/services/auth.service";
+import { signOut } from "@/services/auth.service";
 
 export const signOutAction = async () => {
-  await AuthService.signOut();
+  await signOut();
   redirect("/sign-in");
 };

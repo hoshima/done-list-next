@@ -5,7 +5,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@heroui/input";
 import Link from "next/link";
 import Image from "next/image";
-import { AuthService } from "@/services/auth.service";
+import { redirectIfAuthenticated } from "@/services/auth.service";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
 
-  await AuthService.redirectIfAuthenticated();
+  await redirectIfAuthenticated();
 
   return (
     <div className="flex min-w-64 flex-1 flex-col">

@@ -1,7 +1,7 @@
 "use server";
 
 import { encodedRedirect } from "@/utils/utils";
-import { AuthService } from "@/services/auth.service";
+import { updatePassword } from "@/services/auth.service";
 
 export const resetPasswordAction = async (formData: FormData) => {
   const password = formData.get("password") as string;
@@ -24,7 +24,7 @@ export const resetPasswordAction = async (formData: FormData) => {
   }
 
   try {
-    await AuthService.updatePassword(password);
+    await updatePassword(password);
   } catch {
     encodedRedirect(
       "error",

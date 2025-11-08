@@ -1,7 +1,7 @@
 "use server";
 
 import { encodedRedirect } from "@/utils/utils";
-import { AuthService } from "@/services/auth.service";
+import { signUp } from "@/services/auth.service";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -16,7 +16,7 @@ export const signUpAction = async (formData: FormData) => {
   }
 
   try {
-    await AuthService.signUp(email, password);
+    await signUp(email, password);
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "サインアップに失敗しました";

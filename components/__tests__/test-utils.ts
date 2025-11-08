@@ -9,9 +9,7 @@ import { redirect } from "next/navigation";
 const mockRedirect = vi.mocked(redirect);
 
 // Mock service types
-type MockAuthService = {
-  requireAuth: ReturnType<typeof vi.fn>;
-};
+type MockRequireAuth = ReturnType<typeof vi.fn>;
 
 type MockGetTasks = ReturnType<typeof vi.fn>;
 
@@ -102,15 +100,15 @@ export const mockTasks: Task[] = [
 
 // Test helper functions
 /**
- * Sets up authentication mock to return a successful user
- * @param mockAuthService - Mocked authentication service
- * @param user - User to return from authentication
+ * 認証モックを設定して成功したユーザーを返す
+ * @param mockRequireAuth - モックされたrequireAuth関数
+ * @param user - 認証から返されるユーザー
  */
 export const setupMocksForAuthentication = (
-  mockAuthService: MockAuthService,
+  mockRequireAuth: MockRequireAuth,
   user: User
 ) => {
-  mockAuthService.requireAuth.mockResolvedValue(user);
+  mockRequireAuth.mockResolvedValue(user);
 };
 
 /**
@@ -148,28 +146,28 @@ export const setupMocksForTasksError = (
 };
 
 /**
- * Sets up authentication mock to simulate authentication failure
- * @param mockAuthService - Mocked authentication service
+ * 認証モックを設定して認証失敗をシミュレートする
+ * @param mockRequireAuth - モックされたrequireAuth関数
  */
 export const setupMocksForAuthenticationFailure = (
-  mockAuthService: MockAuthService
+  mockRequireAuth: MockRequireAuth
 ) => {
-  mockAuthService.requireAuth.mockImplementation(() => {
+  mockRequireAuth.mockImplementation(() => {
     mockRedirect("/sign-in");
     throw new Error("NEXT_REDIRECT");
   });
 };
 
 /**
- * Sets up authentication mock to simulate authentication error
- * @param mockAuthService - Mocked authentication service
- * @param error - Error to throw
+ * 認証モックを設定して認証エラーをシミュレートする
+ * @param mockRequireAuth - モックされたrequireAuth関数
+ * @param error - スローするエラー
  */
 export const setupMocksForAuthenticationError = (
-  mockAuthService: MockAuthService,
+  mockRequireAuth: MockRequireAuth,
   error: Error
 ) => {
-  mockAuthService.requireAuth.mockRejectedValue(error);
+  mockRequireAuth.mockRejectedValue(error);
 };
 
 // Rendering helpers
@@ -187,21 +185,21 @@ export const renderAsyncComponent = async (
 
 /**
  * Creates a complete mock setup for authenticated user with tasks
- * @param mockAuthService - Mocked authentication service
+ * @param mockRequireAuth - Mocked authentication service
  * @param mockGetTasks - Mocked getTasks function
  * @param userOptions - User options for mock
  * @param tasks - Tasks to return
  * @param count - Total count of tasks
  */
 export const setupCompleteAuthenticatedMock = (
-  mockAuthService: MockAuthService,
+  mockRequireAuth: MockRequireAuth,
   mockGetTasks: MockGetTasks,
   userOptions: TestUserOptions = {},
   tasks: Task[] = [],
   count: number = tasks.length
 ) => {
   const user = createMockUser(userOptions);
-  setupMocksForAuthentication(mockAuthService, user);
+  setupMocksForAuthentication(mockRequireAuth, user);
   setupMocksForTasks(mockGetTasks, tasks, count);
   return user;
 };

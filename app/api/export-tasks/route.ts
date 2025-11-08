@@ -1,11 +1,11 @@
-import { AuthService } from "@/services/auth.service";
+import { getCurrentUser } from "@/services/auth.service";
 import { getAllTasksForUser } from "@/services/task.service";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const user = await AuthService.getCurrentUser();
+    const user = await getCurrentUser();
 
     if (!user.user) {
       return new Response(JSON.stringify({ error: "認証が必要です" }), {

@@ -1,9 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { AuthService } from "@/services/auth.service";
+import { signInWithGoogle } from "@/services/auth.service";
 
-export async function signInWithGoogleAction() {
-  const url = await AuthService.signInWithGoogle();
+export const signInWithGoogleAction = async () => {
+  const url = await signInWithGoogle();
   redirect(url);
-}
+};
