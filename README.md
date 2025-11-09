@@ -10,3 +10,5 @@
 - Vercel
 - HeroUI
 - tailwindcss
+- Vitest
+  - Browser Modeの実行環境としてPlaywright
