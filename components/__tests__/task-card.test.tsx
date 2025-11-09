@@ -115,7 +115,8 @@ describe("TaskCard", () => {
       "rounded-md",
       "border",
       "border-primary",
-      "p-4",
+      "py-2",
+      "px-4",
       "text-foreground"
     );
   });
