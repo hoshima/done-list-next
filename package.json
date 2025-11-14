@@ -4,8 +4,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "fix:lint": "next lint --fix",
+    "lint": "eslint .",
+    "fix:lint": "eslint --fix .",
     "generate:type": "npx supabase gen types --project-id=igfboflygtixuqmmlagm --lang=typescript --schema public > app/types/database-generated.types.ts",
     "test": "vitest run",
     "test:browser": "vitest --workspace=vitest.workspace.ts"
@@ -30,7 +30,6 @@
     "type-fest": "^4.32.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
     "@markuplint/jsx-parser": "^4.7.14",
     "@markuplint/react-spec": "^4.5.14",

@@ -1,3 +1,5 @@
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 import tailwindcss from "eslint-plugin-tailwindcss";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,11 +16,9 @@ const compat = new FlatCompat({
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
-  ...compat.extends(
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:tailwindcss/recommended"
-  ),
+  ...nextCoreWebVitals,
+  ...nextTypescript,
+  ...compat.extends("plugin:tailwindcss/recommended"),
   {
     plugins: {
       tailwindcss,
@@ -27,4 +27,7 @@ export default [
       "@typescript-eslint/no-unused-vars": "warn",
     },
   },
+  {
+    ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "next-env.d.ts"]
+  }
 ];
