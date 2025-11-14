@@ -6,7 +6,7 @@ export default function TaskCard({ task }: { task: Task }) {
     <Link
       href={`/${task.id}`}
       key={task.id}
-      className="flex flex-col items-start gap-1 rounded-md border border-primary py-2 px-4 text-foreground"
+      className="flex flex-col items-start gap-1 rounded-md border border-primary px-4 py-2 text-foreground"
     >
       <h3 className="text-lg font-medium">{task.name}</h3>
       <p className="text-sm">{task.date}</p>

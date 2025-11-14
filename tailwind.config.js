@@ -1,4 +1,5 @@
-const { heroui } = require("@heroui/theme");
+import { heroui } from "@heroui/theme";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -72,5 +73,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), heroui()],
+  plugins: [tailwindcssAnimate, heroui()],
 };
