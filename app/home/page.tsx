@@ -2,7 +2,6 @@ import FloatingActionButton from "@/components/fab";
 import TaskListSkeleton from "@/components/task-list-skeleton";
 import TaskList from "@/components/task-list";
 import Search from "@/components/ui/search";
-import { requireAuth } from "@/services/auth.service";
 import { Suspense } from "react";
 import { Metadata } from "next";
 
@@ -15,8 +14,6 @@ export default async function ProtectedPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  await requireAuth();
-
   const params = await searchParams;
   const query = params["query"]?.toString();
   const page = parseInt(params["page"]?.toString() || "1", 10);
