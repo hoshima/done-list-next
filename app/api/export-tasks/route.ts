@@ -1,7 +1,9 @@
 import { getCurrentUser } from "@/services/auth.service";
 import { getAllTasksForUser } from "@/services/task.service";
 
-export const dynamic = "force-dynamic";
+// MIGRATED: Removed export const dynamic = "force-dynamic" (incompatible with Cache Components)
+// Route Handlers are dynamic by default with Cache Components
+// Uses cookies() for authentication, so must run at request time
 
 export async function GET() {
   try {

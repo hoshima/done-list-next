@@ -39,7 +39,9 @@ export default function RootLayout({
 
           <main className="flex flex-col items-center py-4">
             <div className="flex w-full flex-1 flex-col items-center gap-8 md:gap-20">
-              <div className="container max-w-5xl">{children}</div>
+              <div className="container max-w-5xl">
+                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+              </div>
 
               <footer className="grid w-full place-items-center gap-8 border-t py-4 text-xs md:py-12">
                 <ThemeSwitcher />
