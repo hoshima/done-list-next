@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-background text-foreground">
         <Providers>
           <Header>
-            <Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
               <HeaderAuth />
             </Suspense>
           </Header>
