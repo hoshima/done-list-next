@@ -1,9 +1,13 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { signOut } from "@/services/auth.service";
 
 export const signOutAction = async () => {
   await signOut();
-  redirect("/sign-in");
+  // レイアウト全体（HeaderAuth を含む）を再検証
+  revalidatePath("/", "layout");
+
+  redirect("/sign-in", RedirectType.push);
 };
