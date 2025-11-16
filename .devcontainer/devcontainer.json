@@ -18,7 +18,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm ci && npx playwright install --with-deps",
+  "postCreateCommand": "npm ci && npx playwright install --with-deps chromium",
 
   // Configure tool-specific properties.
   "customizations": {
