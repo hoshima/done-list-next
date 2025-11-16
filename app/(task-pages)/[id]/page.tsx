@@ -1,10 +1,12 @@
 import { updateTaskAction } from "@/app/actions/update-task";
-import { createTaskId } from "@/app/types/branded.type";
+import { createTaskId, TaskId } from "@/app/types/branded.type";
 import { TaskForm } from "@/components/task-form";
+import TaskFormSkeleton from "@/components/task-form-skeleton";
 import { redirect } from "next/navigation";
 import { requireAuth } from "@/services/auth.service";
 import { Metadata } from "next";
 import { getTaskById } from "@/services/task.service";
+import { Suspense } from "react";
 
 export async function generateMetadata({
   params,
@@ -29,12 +31,12 @@ export async function generateMetadata({
     return {
       title: task.name,
     };
-  } catch (error) {
+  } catch {
     return defaultMetadata;
   }
 }
 
-export default async function EditTask({
+export default async function EditTaskPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -44,27 +46,33 @@ export default async function EditTask({
   if (!id || typeof id !== "string") {
     redirect("/home");
   }
-  const updateTaskActionWithId = updateTaskAction.bind(null, createTaskId(id));
-
-  await requireAuth();
   const taskId = createTaskId(id);
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <h1 className="max-w-64 text-xl">やったことをメモしよう</h1>
+
+      <Suspense fallback={<TaskFormSkeleton />}>
+        <TaskWrapper taskId={taskId} />
+      </Suspense>
+    </div>
+  );
+}
+
+async function TaskWrapper({ taskId }: { taskId: TaskId }) {
+  await requireAuth();
+  const updateTaskActionWithId = updateTaskAction.bind(null, taskId);
 
   let task;
   try {
     task = await getTaskById(taskId);
+    if (!task) {
+      redirect("/home");
+    }
   } catch {
     console.error("Task not found");
     redirect("/home");
   }
 
-  if (!task) {
-    redirect("/home");
-  }
-
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <h1 className="max-w-64 text-xl">やったことをメモしよう</h1>
-      <TaskForm action={updateTaskActionWithId} task={task} />
-    </div>
-  );
+  return <TaskForm action={updateTaskActionWithId} task={task} />;
 }
