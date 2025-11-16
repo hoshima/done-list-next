@@ -12,7 +12,7 @@ export default function TaskListSkeleton() {
 
 export function TaskCardSkeleton() {
   return (
-    <div className="flex flex-col items-start gap-1 rounded-md border border-primary p-4 text-foreground">
+    <div className="flex flex-col items-start gap-1 rounded-md border border-primary px-4 py-2 text-foreground">
       <Skeleton className="h-7 w-3/4 rounded-lg">
         <div className="h-7 w-3/4 rounded-lg bg-default-200"></div>
       </Skeleton>

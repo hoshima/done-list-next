@@ -66,7 +66,7 @@ describe("TaskCardSkeleton", () => {
   it("正しいカードコンテナクラスを持つ", () => {
     const { container } = render(<TaskCardSkeleton />);
     const cardContainer = container.querySelector(
-      ".flex.flex-col.items-start.gap-1.rounded-md.border.border-primary.p-4.text-foreground"
+      ".flex.flex-col.items-start.gap-1.rounded-md.border.border-primary.px-4.py-2.text-foreground"
     );
 
     expect(cardContainer).toBeInTheDocument();
