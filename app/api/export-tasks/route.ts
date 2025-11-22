@@ -1,11 +1,11 @@
 import { getCurrentUser } from "@/services/auth.service";
 import { getAllTasksForUser } from "@/services/task.service";
-
-// MIGRATED: Removed export const dynamic = "force-dynamic" (incompatible with Cache Components)
-// Route Handlers are dynamic by default with Cache Components
-// Uses cookies() for authentication, so must run at request time
+import { cookies } from "next/headers";
 
 export async function GET() {
+  // Call cookies() at the top level to mark this route as dynamic
+  await cookies();
+
   try {
     const user = await getCurrentUser();
 
