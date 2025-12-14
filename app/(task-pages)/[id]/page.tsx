@@ -1,5 +1,5 @@
 import { updateTaskAction } from "@/app/actions/update-task";
-import { createTaskId, TaskId } from "@/app/types/branded.type";
+import { createTaskId } from "@/app/types/branded.type";
 import { TaskForm } from "@/components/task-form";
 import TaskFormSkeleton from "@/components/task-form-skeleton";
 import { redirect } from "next/navigation";
@@ -36,30 +36,30 @@ export async function generateMetadata({
   }
 }
 
-export default async function EditTaskPage({
+export default function EditTaskPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const p = await params;
-  const id = p.id;
-  if (!id || typeof id !== "string") {
-    redirect("/home");
-  }
-  const taskId = createTaskId(id);
-
   return (
     <div className="flex flex-col items-center gap-4">
       <h1 className="max-w-64 text-xl">やったことをメモしよう</h1>
 
       <Suspense fallback={<TaskFormSkeleton />}>
-        <TaskWrapper taskId={taskId} />
+        <TaskWrapper params={params} />
       </Suspense>
     </div>
   );
 }
 
-async function TaskWrapper({ taskId }: { taskId: TaskId }) {
+async function TaskWrapper({ params }: { params: Promise<{ id: string }> }) {
+  const p = await params;
+  const id = p?.id;
+  if (!id || typeof id !== "string") {
+    redirect("/home");
+  }
+  const taskId = createTaskId(id);
+
   await requireAuth();
   const updateTaskActionWithId = updateTaskAction.bind(null, taskId);
 
