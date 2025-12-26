@@ -19,16 +19,17 @@ export function TaskFormSkeleton() {
             <div className="h-24 w-full rounded-lg bg-default-200" />
           </Skeleton>
         </div>
+
         <div className="flex flex-col-reverse gap-2 md:flex-row">
-          <Skeleton className="h-10 w-20 rounded-lg">
-            <div className="h-10 w-20 rounded-lg bg-default-200" />
+          <Skeleton className="h-10 w-full rounded-lg lg:w-20">
+            <div className="h-10 w-full rounded-lg bg-default-200 lg:w-20" />
           </Skeleton>
           <span className="hidden md:inline md:flex-auto" />
-          <Skeleton className="h-10 w-20 rounded-lg">
-            <div className="h-10 w-20 rounded-lg bg-default-200" />
+          <Skeleton className="h-10 w-full rounded-lg lg:w-20">
+            <div className="h-10 w-full rounded-lg bg-default-200 lg:w-20" />
           </Skeleton>
-          <Skeleton className="h-10 w-20 rounded-lg">
-            <div className="h-10 w-20 rounded-lg bg-default-200" />
+          <Skeleton className="h-10 w-full rounded-lg lg:w-20">
+            <div className="h-10 w-full rounded-lg bg-default-200 lg:w-20" />
           </Skeleton>
         </div>
       </div>
