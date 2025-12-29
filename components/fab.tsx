@@ -8,7 +8,7 @@ export default function FloatingActionButton() {
   return (
     <>
       <Button
-        className="!fixed bottom-4 right-4 size-16"
+        className="fixed! bottom-4 right-4 size-16"
         isIconOnly
         as={Link}
         href="/new"

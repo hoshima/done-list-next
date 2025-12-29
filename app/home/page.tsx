@@ -22,7 +22,7 @@ export default function ProtectedPage({
   return (
     <>
       <div className="flex flex-col gap-8 md:gap-20">
-        <div className="mx-auto !block w-11/12 md:w-8/12">
+        <div className="mx-auto block! w-11/12 md:w-8/12">
           <Search />
         </div>
 
