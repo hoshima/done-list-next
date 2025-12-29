@@ -4,6 +4,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint:code": "biome lint ./",
+    "lint:style": "biome format ./",
+    "fix": "biome check --write ./",
     "generate:type": "npx supabase gen types --project-id=igfboflygtixuqmmlagm --lang=typescript --schema public > app/types/database-generated.types.ts",
     "test": "vitest run",
     "test:browser": "vitest --workspace=vitest.workspace.ts"
@@ -28,6 +31,7 @@
     "type-fest": "^4.32.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.10",
     "@markuplint/jsx-parser": "^4.7.22",
     "@markuplint/react-spec": "^4.5.22",
     "@testing-library/dom": "^10.4.0",

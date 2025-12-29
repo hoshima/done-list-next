@@ -34,7 +34,8 @@
         "GitHub.copilot",
         "GitHub.copilot-chat",
         "ms-playwright.playwright",
-        "vitest.explorer"
+        "vitest.explorer",
+        "biomejs.biome"
       ]
     }
   }
