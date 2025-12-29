@@ -1,27 +1,27 @@
-"use server";
+'use server';
 
-import { encodedRedirect } from "@/utils/utils";
-import { redirect } from "next/navigation";
-import { resetPasswordForEmail } from "@/services/auth.service";
+import { redirect } from 'next/navigation';
+import { resetPasswordForEmail } from '@/services/auth.service';
+import { encodedRedirect } from '@/utils/utils';
 
 export const forgotPasswordAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
-  const callbackUrl = formData.get("callbackUrl")?.toString();
+  const email = formData.get('email')?.toString();
+  const callbackUrl = formData.get('callbackUrl')?.toString();
 
   if (!email) {
-    return encodedRedirect("error", "/forgot-password", "Email is required");
+    return encodedRedirect('error', '/forgot-password', 'Email is required');
   }
 
   try {
     await resetPasswordForEmail(email);
   } catch (error) {
     const errorMessage =
-      error instanceof Error ? error.message : "Could not reset password";
+      error instanceof Error ? error.message : 'Could not reset password';
     console.error(errorMessage);
     return encodedRedirect(
-      "error",
-      "/forgot-password",
-      "Could not reset password"
+      'error',
+      '/forgot-password',
+      'Could not reset password',
     );
   }
 
@@ -30,8 +30,8 @@ export const forgotPasswordAction = async (formData: FormData) => {
   }
 
   return encodedRedirect(
-    "success",
-    "/forgot-password",
-    "Check your email for a link to reset your password."
+    'success',
+    '/forgot-password',
+    'Check your email for a link to reset your password.',
   );
 };

@@ -1,7 +1,7 @@
-import { Database } from "@/app/types/database.types";
-import { createServerClient } from "@supabase/ssr";
-import { createClient as createClientSb } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
+import { createServerClient } from '@supabase/ssr';
+import { createClient as createClientSb } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import type { Database } from '@/app/types/database.types';
 
 export const createClient = async () => {
   const cookieStore = await cookies();
@@ -26,7 +26,7 @@ export const createClient = async () => {
           }
         },
       },
-    }
+    },
   );
 };
 
@@ -39,6 +39,6 @@ export const createAdminClient = async () => {
         autoRefreshToken: false,
         persistSession: false,
       },
-    }
+    },
   );
 };

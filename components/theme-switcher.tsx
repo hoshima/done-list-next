@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
 import {
   ComputerDesktopIcon,
   MoonIcon,
   SunIcon,
-} from "@heroicons/react/16/solid";
-import { Button } from "@heroui/button";
+} from '@heroicons/react/16/solid';
+import { Button } from '@heroui/button';
 import {
   Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
   DropdownItem,
-} from "@heroui/dropdown";
-import { useTheme } from "next-themes";
+  DropdownMenu,
+  DropdownTrigger,
+} from '@heroui/dropdown';
+import { useTheme } from 'next-themes';
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
@@ -21,9 +21,9 @@ const ThemeSwitcher = () => {
     <Dropdown>
       <DropdownTrigger>
         <Button isIconOnly aria-label="テーマを切り替え" variant="light">
-          {theme === "light" ? (
+          {theme === 'light' ? (
             <SunIcon key="light" className="size-4 text-muted-foreground" />
-          ) : theme === "dark" ? (
+          ) : theme === 'dark' ? (
             <MoonIcon key="dark" className="size-4 text-muted-foreground" />
           ) : (
             <ComputerDesktopIcon

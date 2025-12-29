@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Pagination as HeroUIPagination } from "@heroui/pagination";
-import { useRouter, usePathname } from "next/navigation";
+import { Pagination as HeroUIPagination } from '@heroui/pagination';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface PaginationProps {
   currentPage: number;
@@ -19,9 +19,9 @@ export default function Pagination({
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams();
-    params.set("page", page.toString());
+    params.set('page', page.toString());
     if (query) {
-      params.set("query", query);
+      params.set('query', query);
     }
     router.push(`${pathname}?${params.toString()}`);
   };

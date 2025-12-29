@@ -1,7 +1,7 @@
-import TaskCard from "./task-card";
-import Pagination from "./pagination";
-import { requireAuth } from "@/services/auth.service";
-import { getTasks } from "@/services/task.service";
+import { requireAuth } from '@/services/auth.service';
+import { getTasks } from '@/services/task.service';
+import Pagination from './pagination';
+import TaskCard from './task-card';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -17,7 +17,7 @@ export default async function TaskList({
   const { data, count } = await getTasks(userId, {
     page,
     itemsPerPage: ITEMS_PER_PAGE,
-    query: typeof query === "string" ? query : undefined,
+    query: typeof query === 'string' ? query : undefined,
   });
 
   const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
@@ -30,21 +30,21 @@ export default async function TaskList({
           data.map((task) => <TaskCard key={task.id} task={task} />)
         ) : (
           <div className="py-8 text-center text-muted-foreground">
-            {query ? "検索結果が見つかりませんでした" : "タスクがありません"}
+            {query ? '検索結果が見つかりませんでした' : 'タスクがありません'}
           </div>
         )}
       </div>
 
       {count !== null && count > 0 && (
         <div className="flex flex-col items-center gap-4">
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             {count}件中 {Math.min(offset + 1, count)}-
             {Math.min(offset + ITEMS_PER_PAGE, count)}件を表示
           </div>
           <Pagination
             currentPage={page}
             totalPages={totalPages}
-            query={typeof query === "string" ? query : undefined}
+            query={typeof query === 'string' ? query : undefined}
           />
         </div>
       )}

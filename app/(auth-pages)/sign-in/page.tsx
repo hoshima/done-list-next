@@ -1,15 +1,15 @@
-import { signInAction } from "@/app/actions/sign-in";
-import { signInWithGoogleAction } from "@/app/actions/sign-in-google";
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@heroui/input";
-import Link from "next/link";
-import Image from "next/image";
-import { redirectIfAuthenticated } from "@/services/auth.service";
-import { Metadata } from "next";
+import { Input } from '@heroui/input';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { signInAction } from '@/app/actions/sign-in';
+import { signInWithGoogleAction } from '@/app/actions/sign-in-google';
+import { FormMessage, type Message } from '@/components/form-message';
+import { SubmitButton } from '@/components/submit-button';
+import { redirectIfAuthenticated } from '@/services/auth.service';
 
 export const metadata: Metadata = {
-  title: "ログイン",
+  title: 'ログイン',
 };
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
@@ -19,15 +19,15 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
 
   return (
     <div className="flex min-w-64 flex-1 flex-col">
-      <h1 className="text-2xl font-medium">ログイン</h1>
+      <h1 className="font-medium text-2xl">ログイン</h1>
 
       <form
-        className="flex w-full items-center justify-center "
+        className="flex w-full items-center justify-center"
         action={signInWithGoogleAction}
       >
         <button
           type="submit"
-          className="my-4 w-1/2 bg-transparent text-sm text-gray-700 shadow-sm transition-colors focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="my-4 w-1/2 bg-transparent text-gray-700 text-sm shadow-sm transition-colors focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           <Image
             src="/image/web_light_rd_SI@2x.png"
@@ -40,7 +40,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
 
       <div className="text-foreground underline">
         <p>
-          <Link className="text-sm font-medium" href="/sign-up">
+          <Link className="font-medium text-sm" href="/sign-up">
             アカウントが無い場合はこちら
           </Link>
         </p>

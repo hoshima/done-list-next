@@ -1,6 +1,6 @@
-import { createClient, createAdminClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createAdminClient, createClient } from '@/utils/supabase/server';
 
 /**
  * 現在のユーザーを取得する
@@ -29,7 +29,7 @@ export const getClaims = async () => {
  * @param redirectTo リダイレクト先のパス（デフォルト: '/sign-in'）
  * @returns 認証済みのユーザーID
  */
-export const requireAuth = async (redirectTo: string = "/sign-in") => {
+export const requireAuth = async (redirectTo: string = '/sign-in') => {
   const { data, error } = await getClaims();
 
   if (error || !data) {
@@ -44,7 +44,7 @@ export const requireAuth = async (redirectTo: string = "/sign-in") => {
  * @param redirectTo リダイレクト先のパス（デフォルト: '/home'）
  * @returns void
  */
-export const redirectIfAuthenticated = async (redirectTo: string = "/home") => {
+export const redirectIfAuthenticated = async (redirectTo: string = '/home') => {
   const { user } = await getCurrentUser();
 
   if (user) {
@@ -79,7 +79,7 @@ export const signInWithPassword = async (email: string, password: string) => {
  */
 export const signUp = async (email: string, password: string) => {
   const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+  const origin = (await headers()).get('origin');
 
   const { error } = await supabase.auth.signUp({
     email,
@@ -113,7 +113,7 @@ export const signInWithGoogle = async () => {
     data: { url },
     error,
   } = await supabase.auth.signInWithOAuth({
-    provider: "google",
+    provider: 'google',
     options: {
       redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback/google`,
     },
@@ -124,7 +124,7 @@ export const signInWithGoogle = async () => {
   }
 
   if (!url) {
-    throw new Error("No URL returned from signInWithOAuth");
+    throw new Error('No URL returned from signInWithOAuth');
   }
 
   return url;
@@ -136,7 +136,7 @@ export const signInWithGoogle = async () => {
  */
 export const resetPasswordForEmail = async (email: string) => {
   const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+  const origin = (await headers()).get('origin');
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/callback?redirect_to=/protected/reset-password`,
@@ -178,7 +178,7 @@ export const exchangeCodeForSession = async (code: string) => {
 export const deleteAccount = async () => {
   const { user } = await getCurrentUser();
   if (!user) {
-    throw new Error("削除するアカウントが存在しません");
+    throw new Error('削除するアカウントが存在しません');
   }
 
   const supabaseAdmin = await createAdminClient();

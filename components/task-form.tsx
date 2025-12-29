@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { type ComponentProps } from "react";
-import { Form } from "@heroui/form";
-import { Input, Textarea } from "@heroui/input";
-import { DeleteButton } from "@/components/delete-button";
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
-import { Task } from "@/app/types/task.type";
-import { SubmitButton } from "./submit-button";
+import { Button } from '@heroui/button';
+import { Form } from '@heroui/form';
+import { Input, Textarea } from '@heroui/input';
+import { Link } from '@heroui/link';
+import React, { type ComponentProps } from 'react';
+import type { Task } from '@/app/types/task.type';
+import { DeleteButton } from '@/components/delete-button';
+import { SubmitButton } from './submit-button';
 
 type Props = ComponentProps<typeof Form> & {
   task?: Task;
@@ -32,7 +31,7 @@ export function TaskForm({
 
   return (
     <Form
-      className={`w-full items-center justify-center space-y-4 ${className || ""}`}
+      className={`w-full items-center justify-center space-y-4 ${className || ''}`}
       validationBehavior="native"
       validationErrors={errors}
       onReset={() => setSubmitted(null)}
@@ -44,21 +43,21 @@ export function TaskForm({
           isRequired
           errorMessage={({ validationDetails }) => {
             if (validationDetails.valueMissing) {
-              return "タイトルを入力してください";
+              return 'タイトルを入力してください';
             }
 
             return errors.name;
           }}
           label="タイトル"
           name="title"
-          defaultValue={task ? task.name : ""}
+          defaultValue={task ? task.name : ''}
         />
 
         <Input
           isRequired
           errorMessage={({ validationDetails }) => {
             if (validationDetails.valueMissing) {
-              return "日付を入力してください";
+              return '日付を入力してください';
             }
 
             return errors.name;

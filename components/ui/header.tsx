@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
+import { Link } from '@heroui/link';
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarMenu,
-  NavbarMenuToggle,
   NavbarMenuItem,
-} from "@heroui/navbar";
-import { Link } from "@heroui/link";
-import React from "react";
+  NavbarMenuToggle,
+} from '@heroui/navbar';
+import React from 'react';
 
 export const Header = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const menuItems = [
-    { label: "ホーム", href: "/home" },
-    { label: "アカウント", href: "/settings/account" },
-    { label: "エクスポート", href: "/settings/export" },
+    { label: 'ホーム', href: '/home' },
+    { label: 'アカウント', href: '/settings/account' },
+    { label: 'エクスポート', href: '/settings/export' },
   ];
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+          aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
         />
         <NavbarBrand>
-          <Link href={"/home"}>やったログ</Link>
+          <Link href={'/home'}>やったログ</Link>
         </NavbarBrand>
       </NavbarContent>
 

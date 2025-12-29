@@ -1,25 +1,25 @@
-"use server";
+'use server';
 
-import { encodedRedirect } from "@/utils/utils";
-import { updatePassword } from "@/services/auth.service";
+import { updatePassword } from '@/services/auth.service';
+import { encodedRedirect } from '@/utils/utils';
 
 export const resetPasswordAction = async (formData: FormData) => {
-  const password = formData.get("password") as string;
-  const confirmPassword = formData.get("confirmPassword") as string;
+  const password = formData.get('password') as string;
+  const confirmPassword = formData.get('confirmPassword') as string;
 
   if (!password || !confirmPassword) {
     encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Password and confirm password are required"
+      'error',
+      '/protected/reset-password',
+      'Password and confirm password are required',
     );
   }
 
   if (password !== confirmPassword) {
     encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Passwords do not match"
+      'error',
+      '/protected/reset-password',
+      'Passwords do not match',
     );
   }
 
@@ -27,11 +27,11 @@ export const resetPasswordAction = async (formData: FormData) => {
     await updatePassword(password);
   } catch {
     encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Password update failed"
+      'error',
+      '/protected/reset-password',
+      'Password update failed',
     );
   }
 
-  encodedRedirect("success", "/protected/reset-password", "Password updated");
+  encodedRedirect('success', '/protected/reset-password', 'Password updated');
 };

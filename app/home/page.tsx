@@ -1,12 +1,12 @@
-import FloatingActionButton from "@/components/fab";
-import TaskListSkeleton from "@/components/task-list-skeleton";
-import TaskList from "@/components/task-list";
-import Search from "@/components/ui/search";
-import { Suspense, use } from "react";
-import { Metadata } from "next";
+import type { Metadata } from 'next';
+import { Suspense, use } from 'react';
+import FloatingActionButton from '@/components/fab';
+import TaskList from '@/components/task-list';
+import TaskListSkeleton from '@/components/task-list-skeleton';
+import Search from '@/components/ui/search';
 
 export const metadata: Metadata = {
-  title: "ホーム",
+  title: 'ホーム',
 };
 
 export default function ProtectedPage({
@@ -15,14 +15,14 @@ export default function ProtectedPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const params = use(searchParams);
-  const query = params["query"]?.toString();
-  const page = parseInt(params["page"]?.toString() || "1", 10);
-  const suspenseKey = `${query || ""}-${page}`;
+  const query = params['query']?.toString();
+  const page = parseInt(params['page']?.toString() || '1', 10);
+  const suspenseKey = `${query || ''}-${page}`;
 
   return (
     <>
       <div className="flex flex-col gap-8 md:gap-20">
-        <div className="mx-auto block! w-11/12 md:w-8/12">
+        <div className="block! mx-auto w-11/12 md:w-8/12">
           <Search />
         </div>
 

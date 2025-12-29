@@ -1,10 +1,10 @@
-import { createTaskAction } from "@/app/actions/create-task";
-import { TaskForm } from "@/components/task-form";
-import { requireAuth } from "@/services/auth.service";
-import { Metadata } from "next";
+import type { Metadata } from 'next';
+import { createTaskAction } from '@/app/actions/create-task';
+import { TaskForm } from '@/components/task-form';
+import { requireAuth } from '@/services/auth.service';
 
 export const metadata: Metadata = {
-  title: "新規作成",
+  title: '新規作成',
 };
 
 export default async function App() {
