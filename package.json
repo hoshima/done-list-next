@@ -1,4 +1,5 @@
 {
+  "name": "done-list-next",
   "private": true,
   "type": "module",
   "scripts": {
