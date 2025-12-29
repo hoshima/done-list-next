@@ -6,7 +6,6 @@ import { TaskCreate } from "../types/task.type";
 import { createTask } from "@/services/task.service";
 
 export const createTaskAction = async (formData: FormData) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isTaskCreate = (data: any): data is TaskCreate => {
     return (
       typeof data.name === "string" &&

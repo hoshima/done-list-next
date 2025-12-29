@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
   :root {
@@ -59,10 +60,10 @@
 
 @layer base {
   * {
-    /* @apply border-border; TODO: tailwind v4 upgrade */
+    @apply border-border; 
   }
   body {
-    /* @apply bg-background text-foreground; TODO: tailwind v4 upgrade */
+    @apply bg-background text-foreground;
 
     /* https://ics.media/entry/200317/ */
     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
