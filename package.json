@@ -43,7 +43,6 @@
     "@vitest/browser": "^3.2.0",
     "eslint": "9.18.0",
     "eslint-config-next": "16.0.3",
-    "eslint-plugin-tailwindcss": "^3.17.5",
     "jsdom": "^26.1.0",
     "markuplint": "^4.14.0",
     "playwright": "^1.56.1",
