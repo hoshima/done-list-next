@@ -24,10 +24,10 @@ export function TaskForm({
     name?: string;
     date?: string;
   };
-  const [submitted, setSubmitted] = React.useState<{
+  const [_submitted, setSubmitted] = React.useState<{
     [key: string]: FormDataEntryValue;
   } | null>(null);
-  const [errors, setErrors] = React.useState<Errors>({});
+  const [errors, _setErrors] = React.useState<Errors>({});
 
   return (
     <Form

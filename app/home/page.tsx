@@ -15,8 +15,8 @@ export default function ProtectedPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const params = use(searchParams);
-  const query = params['query']?.toString();
-  const page = parseInt(params['page']?.toString() || '1', 10);
+  const query = params.query?.toString();
+  const page = parseInt(params.page?.toString() || '1', 10);
   const suspenseKey = `${query || ''}-${page}`;
 
   return (

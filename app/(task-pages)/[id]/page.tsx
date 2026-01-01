@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { updateTaskAction } from '@/app/actions/update-task';
 import { createTaskId } from '@/app/types/branded.type';
+import type { Task } from '@/app/types/task.type';
 import { TaskForm } from '@/components/task-form';
 import TaskFormSkeleton from '@/components/task-form-skeleton';
 import { requireAuth } from '@/services/auth.service';
@@ -63,7 +64,7 @@ async function TaskWrapper({ params }: { params: Promise<{ id: string }> }) {
   await requireAuth();
   const updateTaskActionWithId = updateTaskAction.bind(null, taskId);
 
-  let task;
+  let task: Task | null = null;
   try {
     task = await getTaskById(taskId);
     if (!task) {

@@ -22,30 +22,28 @@ export default async function Signup(props: {
   }
 
   return (
-    <>
-      <form className="mx-auto flex min-w-64 max-w-64 flex-col">
-        <h1 className="font-medium text-2xl">登録</h1>
-        <p className="text-foreground text-sm">
-          登録済みの場合は{' '}
-          <Link className="font-medium text-primary underline" href="/sign-in">
-            ログイン
-          </Link>
-        </p>
-        <div className="mt-4 flex flex-col gap-4">
-          <Input label="メールアドレス" name="email" isRequired />
-          <Input
-            label="パスワード"
-            type="password"
-            name="password"
-            minLength={6}
-            isRequired
-          />
-          <SubmitButton formAction={signUpAction} pendingText="登録しています…">
-            登録
-          </SubmitButton>
-          <FormMessage message={searchParams} />
-        </div>
-      </form>
-    </>
+    <form className="mx-auto flex min-w-64 max-w-64 flex-col">
+      <h1 className="font-medium text-2xl">登録</h1>
+      <p className="text-foreground text-sm">
+        登録済みの場合は{' '}
+        <Link className="font-medium text-primary underline" href="/sign-in">
+          ログイン
+        </Link>
+      </p>
+      <div className="mt-4 flex flex-col gap-4">
+        <Input label="メールアドレス" name="email" isRequired />
+        <Input
+          label="パスワード"
+          type="password"
+          name="password"
+          minLength={6}
+          isRequired
+        />
+        <SubmitButton formAction={signUpAction} pendingText="登録しています…">
+          登録
+        </SubmitButton>
+        <FormMessage message={searchParams} />
+      </div>
+    </form>
   );
 }

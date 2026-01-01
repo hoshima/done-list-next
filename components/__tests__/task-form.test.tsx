@@ -64,7 +64,6 @@ vi.mock('@heroui/form', () => ({
 
     return (
       <form
-        role="form"
         className={className}
         onReset={onReset}
         action={action}
@@ -148,7 +147,11 @@ vi.mock('@heroui/link', () => ({
 
 vi.mock('@/components/delete-button', () => ({
   DeleteButton: ({ id }: { id?: any }) => (
-    <button data-testid={`delete-button-${id || 'new'}`} disabled={!id}>
+    <button
+      type="button"
+      data-testid={`delete-button-${id || 'new'}`}
+      disabled={!id}
+    >
       削除
     </button>
   ),

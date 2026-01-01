@@ -4,6 +4,7 @@ export default function TaskListSkeleton() {
   return (
     <div className="flex flex-col gap-4">
       {Array.from({ length: 10 }).map((_, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         <TaskCardSkeleton key={index} />
       ))}
     </div>

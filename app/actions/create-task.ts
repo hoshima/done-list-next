@@ -6,11 +6,13 @@ import { encodedRedirect } from '@/utils/utils';
 import type { TaskCreate } from '../types/task.type';
 
 export const createTaskAction = async (formData: FormData) => {
-  const isTaskCreate = (data: any): data is TaskCreate => {
+  const isTaskCreate = (data: unknown): data is TaskCreate => {
+    if (data == null || typeof data !== 'object') return false;
+    const d = data as Record<string, unknown>;
     return (
-      typeof data.name === 'string' &&
-      typeof data.date === 'string' &&
-      typeof data.description === 'string'
+      typeof d.name === 'string' &&
+      typeof d.date === 'string' &&
+      typeof d.description === 'string'
     );
   };
 
