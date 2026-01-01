@@ -1,4 +1,3 @@
-import { heroui } from '@heroui/theme';
 import tailwindcssAnimate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
@@ -8,7 +7,6 @@ module.exports = {
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   prefix: '',
   theme: {
@@ -73,5 +71,5 @@ module.exports = {
       },
     },
   },
-  plugins: [tailwindcssAnimate, heroui()],
+  plugins: [tailwindcssAnimate],
 };
