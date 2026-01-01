@@ -253,7 +253,7 @@ describe('TaskForm', () => {
   it('フォーム送信時にactionが呼び出される', async () => {
     render(<TaskForm action={mockAction} />);
 
-    const form = screen.getByRole('form');
+    const form = screen.getByTestId('task-form');
     fireEvent.submit(form);
 
     await waitFor(() => {
@@ -292,14 +292,14 @@ describe('TaskForm', () => {
     render(<TaskForm action={mockAction} />);
 
     // フォームが正しくレンダリングされることを確認
-    const form = screen.getByRole('form');
+    const form = screen.getByTestId('task-form');
     expect(form).toBeInTheDocument();
   });
 
   it('フォームリセット時にsubmittedステートがクリアされる', async () => {
     render(<TaskForm action={mockAction} />);
 
-    const form = screen.getByRole('form');
+    const form = screen.getByTestId('task-form');
     fireEvent.reset(form);
 
     // リセット機能が動作することを確認（内部ステートのテストは困難なため、フォームがレンダリングされることで間接的に確認）

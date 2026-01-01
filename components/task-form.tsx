@@ -31,6 +31,7 @@ export function TaskForm({
 
   return (
     <Form
+      data-testid="task-form"
       className={`w-full items-center justify-center space-y-4 ${className || ''}`}
       validationBehavior="native"
       validationErrors={errors}
@@ -60,7 +61,7 @@ export function TaskForm({
               return '日付を入力してください';
             }
 
-            return errors.name;
+            return errors.date;
           }}
           label="日付"
           name="date"
