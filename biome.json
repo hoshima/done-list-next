@@ -13,6 +13,10 @@
     "indentStyle": "space"
   },
   "linter": {
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    },
     "enabled": true,
     "rules": {
       "recommended": true,
