@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
-import { Task, TaskCreate } from "@/app/types/task.type";
-import { TaskId } from "@/app/types/branded.type";
+import type { TaskId } from '@/app/types/branded.type';
+import type { Task, TaskCreate } from '@/app/types/task.type';
+import { createClient } from '@/utils/supabase/server';
 
 /**
  * 指定されたユーザーのタスク一覧を取得する（ページネーション・検索機能付き）
@@ -14,33 +14,33 @@ export const getTasks = async (
     page?: number;
     itemsPerPage?: number;
     query?: string;
-  } = {}
+  } = {},
 ) => {
   const { page = 1, itemsPerPage = 10, query } = options;
   const supabase = await createClient();
 
   // 合計件数を取得するクエリ
   let countQuery = supabase
-    .from("tasks")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", userId);
+    .from('tasks')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId);
 
   if (query) {
-    countQuery = countQuery.like("name", `%${query}%`);
+    countQuery = countQuery.like('name', `%${query}%`);
   }
 
   // ページネーションを考慮した実際のデータ取得クエリ
   const offset = (page - 1) * itemsPerPage;
   let dataQuery = supabase
-    .from("tasks")
+    .from('tasks')
     .select(`id, name, date, description`)
-    .eq("user_id", userId)
-    .order("date", { ascending: false })
-    .order("name", { ascending: true })
+    .eq('user_id', userId)
+    .order('date', { ascending: false })
+    .order('name', { ascending: true })
     .range(offset, offset + itemsPerPage - 1);
 
   if (query) {
-    dataQuery = dataQuery.like("name", `%${query}%`);
+    dataQuery = dataQuery.like('name', `%${query}%`);
   }
 
   const [{ count }, { data, error }] = await Promise.all([
@@ -64,9 +64,9 @@ export const getTaskById = async (taskId: TaskId) => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("tasks")
+    .from('tasks')
     .select()
-    .eq("id", taskId)
+    .eq('id', taskId)
     .single();
 
   if (error) {
@@ -84,7 +84,7 @@ export const getTaskById = async (taskId: TaskId) => {
 export const createTask = async (taskData: TaskCreate) => {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from("tasks").insert(taskData);
+  const { data, error } = await supabase.from('tasks').insert(taskData);
 
   if (error) {
     throw new Error(`タスクの作成に失敗しました: ${error.message}`);
@@ -101,18 +101,18 @@ export const createTask = async (taskData: TaskCreate) => {
  */
 export const updateTask = async (
   taskId: TaskId,
-  taskData: Partial<TaskCreate>
+  taskData: Partial<TaskCreate>,
 ) => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("tasks")
+    .from('tasks')
     .update({
       ...taskData,
       id: taskId,
       updated_at: new Date().toISOString(),
     })
-    .eq("id", taskId);
+    .eq('id', taskId);
 
   if (error) {
     throw new Error(`タスクの更新に失敗しました: ${error.message}`);
@@ -130,9 +130,9 @@ export const deleteTask = async (taskId: TaskId) => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("tasks")
+    .from('tasks')
     .delete()
-    .eq("id", taskId);
+    .eq('id', taskId);
 
   if (error) {
     throw new Error(`タスクの削除に失敗しました: ${error.message}`);
@@ -150,10 +150,10 @@ export const getAllTasksForUser = async (userId: string) => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("tasks")
-    .select("*")
-    .eq("user_id", userId)
-    .order("date", { ascending: false });
+    .from('tasks')
+    .select('*')
+    .eq('user_id', userId)
+    .order('date', { ascending: false });
 
   if (error) {
     throw new Error(`タスクの取得に失敗しました: ${error.message}`);

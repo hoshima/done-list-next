@@ -1,10 +1,10 @@
-import { signOutAction } from "@/app/actions/sign-out";
-import { AccountDeleteButton } from "@/components/account-delete-button";
-import { Button } from "@heroui/button";
-import { Metadata } from "next";
+import { Button } from '@heroui/button';
+import type { Metadata } from 'next';
+import { signOutAction } from '@/app/actions/sign-out';
+import { AccountDeleteButton } from '@/components/account-delete-button';
 
 export const metadata: Metadata = {
-  title: "アカウント",
+  title: 'アカウント',
 };
 
 export default function Account() {

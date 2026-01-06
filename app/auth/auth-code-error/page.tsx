@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function AuthCodeError() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 text-2xl font-bold text-red-600">認証エラー</h1>
+        <h1 className="mb-4 font-bold text-2xl text-red-600">認証エラー</h1>
         <p className="mb-6 text-gray-600">
           認証プロセス中にエラーが発生しました。もう一度お試しください。
         </p>

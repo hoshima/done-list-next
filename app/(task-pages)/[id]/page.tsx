@@ -1,12 +1,13 @@
-import { updateTaskAction } from "@/app/actions/update-task";
-import { createTaskId } from "@/app/types/branded.type";
-import { TaskForm } from "@/components/task-form";
-import TaskFormSkeleton from "@/components/task-form-skeleton";
-import { redirect } from "next/navigation";
-import { requireAuth } from "@/services/auth.service";
-import { Metadata } from "next";
-import { getTaskById } from "@/services/task.service";
-import { Suspense } from "react";
+import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import { updateTaskAction } from '@/app/actions/update-task';
+import { createTaskId } from '@/app/types/branded.type';
+import type { Task } from '@/app/types/task.type';
+import { TaskForm } from '@/components/task-form';
+import TaskFormSkeleton from '@/components/task-form-skeleton';
+import { requireAuth } from '@/services/auth.service';
+import { getTaskById } from '@/services/task.service';
 
 export async function generateMetadata({
   params,
@@ -15,9 +16,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const p = await params;
   const id = p.id;
-  const defaultMetadata = { title: "編集" };
+  const defaultMetadata = { title: '編集' };
 
-  if (!id || typeof id !== "string") {
+  if (!id || typeof id !== 'string') {
     return defaultMetadata;
   }
 
@@ -55,23 +56,23 @@ export default function EditTaskPage({
 async function TaskWrapper({ params }: { params: Promise<{ id: string }> }) {
   const p = await params;
   const id = p?.id;
-  if (!id || typeof id !== "string") {
-    redirect("/home");
+  if (!id || typeof id !== 'string') {
+    redirect('/home');
   }
   const taskId = createTaskId(id);
 
   await requireAuth();
   const updateTaskActionWithId = updateTaskAction.bind(null, taskId);
 
-  let task;
+  let task: Task | null = null;
   try {
     task = await getTaskById(taskId);
     if (!task) {
-      redirect("/home");
+      redirect('/home');
     }
   } catch {
-    console.error("Task not found");
-    redirect("/home");
+    console.error('Task not found');
+    redirect('/home');
   }
 
   return <TaskForm action={updateTaskActionWithId} task={task} />;

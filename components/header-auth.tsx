@@ -1,7 +1,7 @@
-import { signOutAction } from "@/app/actions/sign-out";
-import Link from "next/link";
-import { Button } from "@heroui/button";
-import { getCurrentUser } from "@/services/auth.service";
+import { Button } from '@heroui/button';
+import Link from 'next/link';
+import { signOutAction } from '@/app/actions/sign-out';
+import { getCurrentUser } from '@/services/auth.service';
 
 export default async function AuthButton() {
   const { user } = await getCurrentUser();

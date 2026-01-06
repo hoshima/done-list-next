@@ -26,8 +26,6 @@
       "extensions": [
         "streetsidesoftware.code-spell-checker",
         "vivaxy.vscode-conventional-commits",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
         "EditorConfig.EditorConfig",
         "mhutchie.git-graph",
@@ -36,7 +34,8 @@
         "GitHub.copilot",
         "GitHub.copilot-chat",
         "ms-playwright.playwright",
-        "vitest.explorer"
+        "vitest.explorer",
+        "biomejs.biome"
       ]
     }
   }

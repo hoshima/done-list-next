@@ -1,4 +1,4 @@
-import { Tables } from './database.types';
+import type { Tables } from './database.types';
 
 export type Task = Pick<
   Tables<'tasks'>,

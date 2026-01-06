@@ -1,10 +1,10 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, cleanup } from "@testing-library/react";
-import TaskCard from "../task-card";
-import { createMockTask } from "./test-utils";
+import { cleanup, render, screen } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import TaskCard from '../task-card';
+import { createMockTask } from './test-utils';
 
 // Mock HeroUI Link component
-vi.mock("@heroui/link", () => ({
+vi.mock('@heroui/link', () => ({
   Link: ({
     href,
     children,
@@ -22,7 +22,7 @@ vi.mock("@heroui/link", () => ({
   ),
 }));
 
-describe("TaskCard", () => {
+describe('TaskCard', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -31,200 +31,200 @@ describe("TaskCard", () => {
     cleanup();
   });
 
-  it("renders task name correctly", () => {
+  it('renders task name correctly', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText("Test Task")).toBeInTheDocument();
+    expect(screen.getByText('Test Task')).toBeInTheDocument();
   });
 
-  it("renders task date correctly", () => {
+  it('renders task date correctly', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText("2024-01-01")).toBeInTheDocument();
+    expect(screen.getByText('2024-01-01')).toBeInTheDocument();
   });
 
-  it("renders task description when provided", () => {
+  it('renders task description when provided', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText("Test description")).toBeInTheDocument();
+    expect(screen.getByText('Test description')).toBeInTheDocument();
   });
 
-  it("does not render description when not provided", () => {
+  it('does not render description when not provided', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
     });
 
     render(<TaskCard task={task} />);
 
-    expect(screen.queryByText("Test description")).not.toBeInTheDocument();
+    expect(screen.queryByText('Test description')).not.toBeInTheDocument();
   });
 
-  it("renders with correct href link", () => {
+  it('renders with correct href link', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    const link = screen.getByRole("link");
-    expect(link).toHaveAttribute("href", "/1");
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', '/1');
   });
 
-  it("applies correct CSS classes", () => {
+  it('applies correct CSS classes', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    const link = screen.getByRole("link");
+    const link = screen.getByRole('link');
     expect(link).toHaveClass(
-      "flex",
-      "flex-col",
-      "items-start",
-      "gap-1",
-      "rounded-md",
-      "border",
-      "border-primary",
-      "py-2",
-      "px-4",
-      "text-foreground"
+      'flex',
+      'flex-col',
+      'items-start',
+      'gap-1',
+      'rounded-md',
+      'border',
+      'border-primary',
+      'py-2',
+      'px-4',
+      'text-foreground',
     );
   });
 
-  it("renders task name with correct styling", () => {
+  it('renders task name with correct styling', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    const taskName = screen.getByText("Test Task");
+    const taskName = screen.getByText('Test Task');
     expect(taskName).toBeInTheDocument();
-    expect(taskName).toHaveClass("text-lg", "font-medium");
-    expect(taskName.tagName).toBe("H3");
+    expect(taskName).toHaveClass('text-lg', 'font-medium');
+    expect(taskName.tagName).toBe('H3');
   });
 
-  it("renders task date with correct styling", () => {
+  it('renders task date with correct styling', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    const taskDate = screen.getByText("2024-01-01");
+    const taskDate = screen.getByText('2024-01-01');
     expect(taskDate).toBeInTheDocument();
-    expect(taskDate).toHaveClass("text-sm");
-    expect(taskDate.tagName).toBe("P");
+    expect(taskDate).toHaveClass('text-sm');
+    expect(taskDate.tagName).toBe('P');
   });
 
-  it("renders task description with correct styling when present", () => {
+  it('renders task description with correct styling when present', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
-    const taskDescription = screen.getByText("Test description");
+    const taskDescription = screen.getByText('Test description');
     expect(taskDescription).toBeInTheDocument();
-    expect(taskDescription).toHaveClass("text-sm");
-    expect(taskDescription.tagName).toBe("P");
+    expect(taskDescription).toHaveClass('text-sm');
+    expect(taskDescription.tagName).toBe('P');
   });
 
-  it("handles empty description correctly", () => {
+  it('handles empty description correctly', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: '',
     });
 
     render(<TaskCard task={task} />);
 
     // Empty description should not render
     const descriptionElements = screen
-      .getAllByText("")
+      .getAllByText('')
       .filter(
-        (element) => element.tagName === "P" && element.textContent === ""
+        (element) => element.tagName === 'P' && element.textContent === '',
       );
     expect(descriptionElements.length).toBe(0);
   });
 
-  it("handles special characters in task name", () => {
+  it('handles special characters in task name', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task with Special Characters: !@#$%^&*()",
-      date: "2024-01-01",
-      description: "Test description",
+      id: '1',
+      name: 'Test Task with Special Characters: !@#$%^&*()',
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
 
     expect(
-      screen.getByText("Test Task with Special Characters: !@#$%^&*()")
+      screen.getByText('Test Task with Special Characters: !@#$%^&*()'),
     ).toBeInTheDocument();
   });
 
-  it("handles special characters in task description", () => {
+  it('handles special characters in task description', () => {
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
-      description: "Description with special chars: <>&\"'",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
+      description: 'Description with special chars: <>&"\'',
     });
 
     render(<TaskCard task={task} />);
 
     expect(
-      screen.getByText("Description with special chars: <>&\"'")
+      screen.getByText('Description with special chars: <>&"\''),
     ).toBeInTheDocument();
   });
 
-  it("handles long task names", () => {
-    const longName = "A".repeat(100);
+  it('handles long task names', () => {
+    const longName = 'A'.repeat(100);
     const task = createMockTask({
-      id: "1",
+      id: '1',
       name: longName,
-      date: "2024-01-01",
-      description: "Test description",
+      date: '2024-01-01',
+      description: 'Test description',
     });
 
     render(<TaskCard task={task} />);
@@ -232,12 +232,12 @@ describe("TaskCard", () => {
     expect(screen.getByText(longName)).toBeInTheDocument();
   });
 
-  it("handles long task descriptions", () => {
-    const longDescription = "B".repeat(500);
+  it('handles long task descriptions', () => {
+    const longDescription = 'B'.repeat(500);
     const task = createMockTask({
-      id: "1",
-      name: "Test Task",
-      date: "2024-01-01",
+      id: '1',
+      name: 'Test Task',
+      date: '2024-01-01',
       description: longDescription,
     });
 

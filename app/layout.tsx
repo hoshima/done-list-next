@@ -1,25 +1,25 @@
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import "./globals.css";
-import { Providers } from "./providers";
-import { Header } from "@/components/ui/header";
-import HeaderAuth from "@/components/header-auth";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
-import { Suspense } from "react";
-import { Metadata } from "next";
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+import HeaderAuth from '@/components/header-auth';
+import { Header } from '@/components/ui/header';
+import { Providers } from './providers';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+  : 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: {
-    default: "やったログ",
-    template: "%s | やったログ",
+    default: 'やったログ',
+    template: '%s | やったログ',
   },
   description:
-    "やったことを記録して、あとで思い出すためのwebサイトです。「洗濯槽のカビ取り、前にやったのいつだっけ？」とかそういうときのための。",
+    'やったことを記録して、あとで思い出すためのwebサイトです。「洗濯槽のカビ取り、前にやったのいつだっけ？」とかそういうときのための。',
 };
 
 export default function RootLayout({

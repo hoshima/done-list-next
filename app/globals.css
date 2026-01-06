@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "./hero.ts";
+@source "../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx,mjs,mts}";
+@custom-variant dark (&:is(.dark *));
+/* TODO: CSS first approach 対応 */
+@config "../tailwind.config.js";
 
 @layer base {
   :root {
@@ -67,8 +70,9 @@
     @apply bg-background text-foreground;
 
     /* https://ics.media/entry/200317/ */
-    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
-      "Hiragino Sans", Meiryo, sans-serif;
+    font-family:
+      "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+      Meiryo, sans-serif;
   }
 }
 

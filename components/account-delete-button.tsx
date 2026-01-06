@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { deleteAccountAction } from "@/app/actions/delete-account";
-import { Button } from "@heroui/button";
+import { Button } from '@heroui/button';
+import { deleteAccountAction } from '@/app/actions/delete-account';
 
 export function AccountDeleteButton() {
   return (
@@ -9,7 +9,7 @@ export function AccountDeleteButton() {
       onSubmit={(e) => {
         e.preventDefault();
         const confirm = window.confirm(
-          "この操作は取り消せません。よろしいですか？"
+          'この操作は取り消せません。よろしいですか？',
         );
         if (confirm) {
           deleteAccountAction();

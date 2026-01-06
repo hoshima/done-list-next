@@ -1,5 +1,5 @@
-import { createServerClient } from "@supabase/ssr";
-import { type NextRequest, NextResponse } from "next/server";
+import { createServerClient } from '@supabase/ssr';
+import { type NextRequest, NextResponse } from 'next/server';
 
 export const updateSession = async (request: NextRequest) => {
   // This `try/catch` block is only here for the interactive tutorial.
@@ -21,18 +21,18 @@ export const updateSession = async (request: NextRequest) => {
             return request.cookies.getAll();
           },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value)
-            );
+            cookiesToSet.forEach(({ name, value }) => {
+              request.cookies.set(name, value);
+            });
             response = NextResponse.next({
               request,
             });
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
-            );
+            cookiesToSet.forEach(({ name, value, options }) => {
+              response.cookies.set(name, value, options);
+            });
           },
         },
-      }
+      },
     );
 
     // This will refresh session if expired - required for Server Components
@@ -41,20 +41,20 @@ export const updateSession = async (request: NextRequest) => {
 
     // protected routes
     if (
-      (request.nextUrl.pathname === "/home" ||
-        request.nextUrl.pathname.startsWith("/protected") ||
-        request.nextUrl.pathname.startsWith("/setting")) &&
+      (request.nextUrl.pathname === '/home' ||
+        request.nextUrl.pathname.startsWith('/protected') ||
+        request.nextUrl.pathname.startsWith('/setting')) &&
       user.error
     ) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
+      return NextResponse.redirect(new URL('/sign-in', request.url));
     }
 
-    if (request.nextUrl.pathname === "/" && !user.error) {
-      return NextResponse.redirect(new URL("/home", request.url));
+    if (request.nextUrl.pathname === '/' && !user.error) {
+      return NextResponse.redirect(new URL('/home', request.url));
     }
 
     return response;
-  } catch (e) {
+  } catch (_e) {
     // If you are here, a Supabase client could not be created!
     // This is likely because you have not set up environment variables.
     // Check out http://localhost:3000 for Next Steps.

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { deleteTaskAction } from "@/app/actions/delete-task";
-import { TaskId } from "@/app/types/branded.type";
-import { Button } from "@heroui/button";
+import { Button } from '@heroui/button';
+import { deleteTaskAction } from '@/app/actions/delete-task';
+import type { TaskId } from '@/app/types/branded.type';
 
 export const DeleteButton = ({ id }: { id?: TaskId }) => {
   if (!id) {
@@ -15,7 +15,7 @@ export const DeleteButton = ({ id }: { id?: TaskId }) => {
       variant="bordered"
       type="button"
       onPress={() => {
-        const confirm = window.confirm("削除してもよろしいですか？");
+        const confirm = window.confirm('削除してもよろしいですか？');
         if (!confirm) {
           return;
         }

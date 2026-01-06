@@ -12,3 +12,4 @@
 - tailwindcss
 - Vitest
   - Browser Modeの実行環境としてPlaywright
+- Biome

@@ -1,8 +1,8 @@
-import { ExportButton } from "@/components/export-button";
-import { Metadata } from "next";
+import type { Metadata } from 'next';
+import { ExportButton } from '@/components/export-button';
 
 export const metadata: Metadata = {
-  title: "エクスポート",
+  title: 'エクスポート',
 };
 
 export default function Account() {

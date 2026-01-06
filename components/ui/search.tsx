@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
-import Form from "next/form";
-import { useSearchParams } from "next/navigation";
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
+import Form from 'next/form';
+import { useSearchParams } from 'next/navigation';
 
 export default function Search() {
   const searchParams = useSearchParams();
-  const query = searchParams.get("query") ?? "";
+  const query = searchParams.get('query') ?? '';
 
   return (
     <Form action="">

@@ -1,9 +1,9 @@
-import { vi, expect } from "vitest";
-import { render, RenderResult } from "@testing-library/react";
-import { User } from "@supabase/supabase-js";
-import { Task } from "@/app/types/task.type";
-import { createTaskId } from "@/app/types/branded.type";
-import { redirect } from "next/navigation";
+import type { User } from '@supabase/supabase-js';
+import { type RenderResult, render } from '@testing-library/react';
+import { redirect } from 'next/navigation';
+import { expect, vi } from 'vitest';
+import { createTaskId } from '@/app/types/branded.type';
+import type { Task } from '@/app/types/task.type';
 
 // Mock functions
 const mockRedirect = vi.mocked(redirect);
@@ -41,12 +41,12 @@ interface TestTaskOptions {
  * @returns Mock User object
  */
 export const createMockUser = (options: TestUserOptions = {}): User => ({
-  id: options.id || "test-user-id",
-  email: options.email || "test@example.com",
+  id: options.id || 'test-user-id',
+  email: options.email || 'test@example.com',
   app_metadata: {},
   user_metadata: {},
-  aud: "authenticated",
-  created_at: options.createdAt || "2024-01-01T00:00:00.000Z",
+  aud: 'authenticated',
+  created_at: options.createdAt || '2024-01-01T00:00:00.000Z',
 });
 
 /**
@@ -58,7 +58,7 @@ export const createMockTask = (options: TestTaskOptions): Task => ({
   id: createTaskId(options.id),
   name: options.name,
   date: options.date,
-  description: options.description || "",
+  description: options.description || '',
 });
 
 /**
@@ -69,32 +69,32 @@ export const createMockTask = (options: TestTaskOptions): Task => ({
  */
 export const createMockTasks = (
   count: number,
-  baseOptions: Partial<TestTaskOptions> = {}
+  baseOptions: Partial<TestTaskOptions> = {},
 ): Task[] => {
   return Array.from({ length: count }, (_, index) =>
     createMockTask({
       id: `${index + 1}`,
       name: `Test Task ${index + 1}`,
-      date: `2024-01-${String(index + 1).padStart(2, "0")}`,
+      date: `2024-01-${String(index + 1).padStart(2, '0')}`,
       description: `Description for task ${index + 1}`,
       ...baseOptions,
-    })
+    }),
   );
 };
 
 // Common test data
 export const mockTasks: Task[] = [
   createMockTask({
-    id: "1",
-    name: "Test Task 1",
-    date: "2024-01-01",
-    description: "First test task",
+    id: '1',
+    name: 'Test Task 1',
+    date: '2024-01-01',
+    description: 'First test task',
   }),
   createMockTask({
-    id: "2",
-    name: "Test Task 2",
-    date: "2024-01-02",
-    description: "Second test task",
+    id: '2',
+    name: 'Test Task 2',
+    date: '2024-01-02',
+    description: 'Second test task',
   }),
 ];
 
@@ -106,7 +106,7 @@ export const mockTasks: Task[] = [
  */
 export const setupMocksForAuthentication = (
   mockRequireAuth: MockRequireAuth,
-  user: User
+  user: User,
 ) => {
   mockRequireAuth.mockResolvedValue(user);
 };
@@ -120,7 +120,7 @@ export const setupMocksForAuthentication = (
 export const setupMocksForTasks = (
   mockGetTasks: MockGetTasks,
   data: Task[],
-  count: number
+  count: number,
 ) => {
   mockGetTasks.mockResolvedValue({
     data,
@@ -136,7 +136,7 @@ export const setupMocksForTasks = (
  */
 export const setupMocksForTasksError = (
   mockGetTasks: MockGetTasks,
-  error: string
+  error: string,
 ) => {
   mockGetTasks.mockResolvedValue({
     data: null,
@@ -150,11 +150,11 @@ export const setupMocksForTasksError = (
  * @param mockRequireAuth - モックされたrequireAuth関数
  */
 export const setupMocksForAuthenticationFailure = (
-  mockRequireAuth: MockRequireAuth
+  mockRequireAuth: MockRequireAuth,
 ) => {
   mockRequireAuth.mockImplementation(() => {
-    mockRedirect("/sign-in");
-    throw new Error("NEXT_REDIRECT");
+    mockRedirect('/sign-in');
+    throw new Error('NEXT_REDIRECT');
   });
 };
 
@@ -165,7 +165,7 @@ export const setupMocksForAuthenticationFailure = (
  */
 export const setupMocksForAuthenticationError = (
   mockRequireAuth: MockRequireAuth,
-  error: Error
+  error: Error,
 ) => {
   mockRequireAuth.mockRejectedValue(error);
 };
@@ -177,7 +177,7 @@ export const setupMocksForAuthenticationError = (
  * @returns Render result from testing library
  */
 export const renderAsyncComponent = async (
-  component: Promise<React.ReactElement>
+  component: Promise<React.ReactElement>,
 ): Promise<RenderResult> => {
   const result = await component;
   return render(result as React.ReactElement);
@@ -196,7 +196,7 @@ export const setupCompleteAuthenticatedMock = (
   mockGetTasks: MockGetTasks,
   userOptions: TestUserOptions = {},
   tasks: Task[] = [],
-  count: number = tasks.length
+  count: number = tasks.length,
 ) => {
   const user = createMockUser(userOptions);
   setupMocksForAuthentication(mockRequireAuth, user);
@@ -213,7 +213,7 @@ export const setupCompleteAuthenticatedMock = (
 export const expectMockToHaveBeenCalledWith = (
   mockFn: ReturnType<typeof vi.fn>,
   expectedArgs: unknown[],
-  callIndex = 0
+  callIndex = 0,
 ) => {
   expect(mockFn).toHaveBeenCalledWith(...expectedArgs);
   if (mockFn.mock.calls[callIndex]) {

@@ -1,17 +1,17 @@
 /// <reference types="@vitest/browser/context" />
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+
 import {
+  cleanup,
+  fireEvent,
   render,
   screen,
-  fireEvent,
   waitFor,
-  cleanup,
-} from "@testing-library/react";
-import { TaskForm } from "../task-form";
-import { Task } from "@/app/types/task.type";
-import { createTaskId } from "@/app/types/branded.type";
-import { ReactNode } from "react";
+} from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { createTaskId } from '@/app/types/branded.type';
+import type { Task } from '@/app/types/task.type';
+import { TaskForm } from '../task-form';
 
 // Type definitions for mocked components
 interface FormProps {
@@ -55,7 +55,7 @@ interface LinkProps {
 }
 
 // Mock HeroUI components
-vi.mock("@heroui/form", () => ({
+vi.mock('@heroui/form', () => ({
   Form: ({ children, className, onReset, action, ...props }: FormProps) => {
     // Remove React-specific props that shouldn't be on DOM elements
     const { validationBehavior, validationErrors, ...domProps } = props;
@@ -64,7 +64,6 @@ vi.mock("@heroui/form", () => ({
 
     return (
       <form
-        role="form"
         className={className}
         onReset={onReset}
         action={action}
@@ -76,7 +75,7 @@ vi.mock("@heroui/form", () => ({
   },
 }));
 
-vi.mock("@heroui/input", () => ({
+vi.mock('@heroui/input', () => ({
   Input: ({
     label,
     name,
@@ -99,7 +98,7 @@ vi.mock("@heroui/input", () => ({
         <input
           id={name}
           name={name}
-          type={type || "text"}
+          type={type || 'text'}
           defaultValue={defaultValue}
           required={isRequired}
           {...domProps}
@@ -127,9 +126,9 @@ vi.mock("@heroui/input", () => ({
   },
 }));
 
-vi.mock("@heroui/button", () => ({
+vi.mock('@heroui/button', () => ({
   Button: ({ children, type, as, ...props }: ButtonProps) => {
-    const Component = as || "button";
+    const Component = as || 'button';
     return (
       <Component type={type} {...props}>
         {children}
@@ -138,7 +137,7 @@ vi.mock("@heroui/button", () => ({
   },
 }));
 
-vi.mock("@heroui/link", () => ({
+vi.mock('@heroui/link', () => ({
   Link: ({ children, href, ...props }: LinkProps) => (
     <a href={href} {...props}>
       {children}
@@ -146,15 +145,19 @@ vi.mock("@heroui/link", () => ({
   ),
 }));
 
-vi.mock("@/components/delete-button", () => ({
+vi.mock('@/components/delete-button', () => ({
   DeleteButton: ({ id }: { id?: any }) => (
-    <button data-testid={`delete-button-${id || "new"}`} disabled={!id}>
+    <button
+      type="button"
+      data-testid={`delete-button-${id || 'new'}`}
+      disabled={!id}
+    >
       削除
     </button>
   ),
 }));
 
-describe("TaskForm", () => {
+describe('TaskForm', () => {
   const mockAction = vi.fn();
 
   beforeEach(() => {
@@ -165,92 +168,92 @@ describe("TaskForm", () => {
     cleanup();
   });
 
-  it("新規タスク作成時に正しくレンダリングされる", () => {
+  it('新規タスク作成時に正しくレンダリングされる', () => {
     render(<TaskForm action={mockAction} />);
 
-    expect(screen.getByLabelText("タイトル")).toBeInTheDocument();
-    expect(screen.getByLabelText("日付")).toBeInTheDocument();
-    expect(screen.getByLabelText("説明")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "戻る" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "やった" })).toBeInTheDocument();
+    expect(screen.getByLabelText('タイトル')).toBeInTheDocument();
+    expect(screen.getByLabelText('日付')).toBeInTheDocument();
+    expect(screen.getByLabelText('説明')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '戻る' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'やった' })).toBeInTheDocument();
   });
 
-  it("既存タスクの編集時にデフォルト値が設定される", () => {
+  it('既存タスクの編集時にデフォルト値が設定される', () => {
     const task: Task = {
-      id: createTaskId("1"),
-      name: "テストタスク",
-      date: "2025-06-03",
-      description: "テスト説明",
+      id: createTaskId('1'),
+      name: 'テストタスク',
+      date: '2025-06-03',
+      description: 'テスト説明',
     };
 
     render(<TaskForm action={mockAction} task={task} />);
 
-    const titleInput = screen.getByLabelText("タイトル") as HTMLInputElement;
-    const dateInput = screen.getByLabelText("日付") as HTMLInputElement;
+    const titleInput = screen.getByLabelText('タイトル') as HTMLInputElement;
+    const dateInput = screen.getByLabelText('日付') as HTMLInputElement;
     const descriptionTextarea = screen.getByLabelText(
-      "説明"
+      '説明',
     ) as HTMLTextAreaElement;
 
-    expect(titleInput).toHaveValue("テストタスク");
-    expect(dateInput).toHaveValue("2025-06-03");
-    expect(descriptionTextarea).toHaveValue("テスト説明");
+    expect(titleInput).toHaveValue('テストタスク');
+    expect(dateInput).toHaveValue('2025-06-03');
+    expect(descriptionTextarea).toHaveValue('テスト説明');
   });
 
-  it("必須フィールドが適切に設定される", () => {
+  it('必須フィールドが適切に設定される', () => {
     render(<TaskForm action={mockAction} />);
 
-    const titleInput = screen.getByLabelText("タイトル");
-    const dateInput = screen.getByLabelText("日付");
-    const descriptionTextarea = screen.getByLabelText("説明");
+    const titleInput = screen.getByLabelText('タイトル');
+    const dateInput = screen.getByLabelText('日付');
+    const descriptionTextarea = screen.getByLabelText('説明');
 
     expect(titleInput).toBeRequired();
     expect(dateInput).toBeRequired();
     expect(descriptionTextarea).not.toBeRequired();
   });
 
-  it("入力フィールドの名前属性が正しく設定される", () => {
+  it('入力フィールドの名前属性が正しく設定される', () => {
     render(<TaskForm action={mockAction} />);
 
-    expect(screen.getByLabelText("タイトル")).toHaveAttribute("name", "title");
-    expect(screen.getByLabelText("日付")).toHaveAttribute("name", "date");
-    expect(screen.getByLabelText("説明")).toHaveAttribute(
-      "name",
-      "description"
+    expect(screen.getByLabelText('タイトル')).toHaveAttribute('name', 'title');
+    expect(screen.getByLabelText('日付')).toHaveAttribute('name', 'date');
+    expect(screen.getByLabelText('説明')).toHaveAttribute(
+      'name',
+      'description',
     );
   });
 
-  it("日付フィールドのタイプがdateに設定される", () => {
+  it('日付フィールドのタイプがdateに設定される', () => {
     render(<TaskForm action={mockAction} />);
 
-    const dateInput = screen.getByLabelText("日付");
-    expect(dateInput).toHaveAttribute("type", "date");
+    const dateInput = screen.getByLabelText('日付');
+    expect(dateInput).toHaveAttribute('type', 'date');
   });
 
-  it("新規作成時は削除ボタンが無効化される", () => {
+  it('新規作成時は削除ボタンが無効化される', () => {
     render(<TaskForm action={mockAction} />);
 
-    const deleteButton = screen.getByTestId("delete-button-new");
+    const deleteButton = screen.getByTestId('delete-button-new');
     expect(deleteButton).toBeDisabled();
   });
 
-  it("既存タスク編集時は削除ボタンが有効化される", () => {
+  it('既存タスク編集時は削除ボタンが有効化される', () => {
     const task: Task = {
-      id: createTaskId("1"),
-      name: "テストタスク",
-      date: "2025-06-03",
-      description: "テスト説明",
+      id: createTaskId('1'),
+      name: 'テストタスク',
+      date: '2025-06-03',
+      description: 'テスト説明',
     };
 
     render(<TaskForm action={mockAction} task={task} />);
 
-    const deleteButton = screen.getByTestId("delete-button-1");
+    const deleteButton = screen.getByTestId('delete-button-1');
     expect(deleteButton).not.toBeDisabled();
   });
 
-  it("フォーム送信時にactionが呼び出される", async () => {
+  it('フォーム送信時にactionが呼び出される', async () => {
     render(<TaskForm action={mockAction} />);
 
-    const form = screen.getByRole("form");
+    const form = screen.getByTestId('task-form');
     fireEvent.submit(form);
 
     await waitFor(() => {
@@ -258,45 +261,45 @@ describe("TaskForm", () => {
     });
   });
 
-  it("戻るボタンのリンクが正しく設定される", () => {
+  it('戻るボタンのリンクが正しく設定される', () => {
     render(<TaskForm action={mockAction} />);
 
-    const backLink = screen.getByRole("link", { name: "戻る" });
-    expect(backLink).toHaveAttribute("href", "/home");
+    const backLink = screen.getByRole('link', { name: '戻る' });
+    expect(backLink).toHaveAttribute('href', '/home');
   });
 
-  it("送信ボタンのタイプがsubmitに設定される", () => {
+  it('送信ボタンのタイプがsubmitに設定される', () => {
     render(<TaskForm action={mockAction} />);
 
-    const submitButton = screen.getByRole("button", { name: "やった" });
-    expect(submitButton).toHaveAttribute("type", "submit");
+    const submitButton = screen.getByRole('button', { name: 'やった' });
+    expect(submitButton).toHaveAttribute('type', 'submit');
   });
 
-  it("カスタムpropsが正しく渡される", () => {
+  it('カスタムpropsが正しく渡される', () => {
     const customProps = {
-      "data-testid": "custom-form",
-      className: "custom-class",
+      'data-testid': 'custom-form',
+      className: 'custom-class',
     };
 
     render(<TaskForm action={mockAction} {...customProps} />);
 
-    const form = screen.getByTestId("custom-form");
+    const form = screen.getByTestId('custom-form');
     expect(form).toBeInTheDocument();
-    expect(form).toHaveClass("custom-class");
+    expect(form).toHaveClass('custom-class');
   });
 
-  it("validationBehaviorがnativeに設定される", () => {
+  it('validationBehaviorがnativeに設定される', () => {
     render(<TaskForm action={mockAction} />);
 
     // フォームが正しくレンダリングされることを確認
-    const form = screen.getByRole("form");
+    const form = screen.getByTestId('task-form');
     expect(form).toBeInTheDocument();
   });
 
-  it("フォームリセット時にsubmittedステートがクリアされる", async () => {
+  it('フォームリセット時にsubmittedステートがクリアされる', async () => {
     render(<TaskForm action={mockAction} />);
 
-    const form = screen.getByRole("form");
+    const form = screen.getByTestId('task-form');
     fireEvent.reset(form);
 
     // リセット機能が動作することを確認（内部ステートのテストは困難なため、フォームがレンダリングされることで間接的に確認）

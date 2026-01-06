@@ -1,11 +1,12 @@
 /// <reference types="@vitest/browser/context" />
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, cleanup } from "@testing-library/react";
-import TaskListSkeleton, { TaskCardSkeleton } from "../task-list-skeleton";
-import { ReactNode } from "react";
+
+import { cleanup, render, screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import TaskListSkeleton, { TaskCardSkeleton } from '../task-list-skeleton';
 
 // Mock HeroUI Skeleton component
-vi.mock("@heroui/skeleton", () => ({
+vi.mock('@heroui/skeleton', () => ({
   Skeleton: ({
     children,
     className,
@@ -28,67 +29,67 @@ afterEach(() => {
   cleanup();
 });
 
-describe("TaskListSkeleton", () => {
-  it("10個のTaskCardSkeletonコンポーネントを表示する", () => {
+describe('TaskListSkeleton', () => {
+  it('10個のTaskCardSkeletonコンポーネントを表示する', () => {
     render(<TaskListSkeleton />);
 
     // 10個のスケルトンカードを表示（各カードは2つのスケルトン要素を持つ）
-    const skeletonElements = screen.getAllByTestId("skeleton");
+    const skeletonElements = screen.getAllByTestId('skeleton');
     expect(skeletonElements).toHaveLength(20); // 10カード × カードあたり2つのスケルトン要素
   });
 
-  it("正しいコンテナクラスを持つ", () => {
+  it('正しいコンテナクラスを持つ', () => {
     const { container } = render(<TaskListSkeleton />);
-    const listContainer = container.querySelector(".flex.flex-col.gap-4");
+    const listContainer = container.querySelector('.flex.flex-col.gap-4');
 
     expect(listContainer).toBeInTheDocument();
   });
 
-  it("ユニークキーを持つスケルトンカードを表示する", () => {
+  it('ユニークキーを持つスケルトンカードを表示する', () => {
     const { container } = render(<TaskListSkeleton />);
     const cardContainers = container.querySelectorAll(
-      ".flex.flex-col.items-start.gap-1"
+      '.flex.flex-col.items-start.gap-1',
     );
 
     expect(cardContainers).toHaveLength(10);
   });
 });
 
-describe("TaskCardSkeleton", () => {
-  it("正しく表示される", () => {
+describe('TaskCardSkeleton', () => {
+  it('正しく表示される', () => {
     render(<TaskCardSkeleton />);
 
     // 2つのスケルトン要素（タイトルと日付）を表示
-    const skeletonElements = screen.getAllByTestId("skeleton");
+    const skeletonElements = screen.getAllByTestId('skeleton');
     expect(skeletonElements).toHaveLength(2);
   });
 
-  it("正しいカードコンテナクラスを持つ", () => {
+  it('正しいカードコンテナクラスを持つ', () => {
     const { container } = render(<TaskCardSkeleton />);
     const cardContainer = container.querySelector(
-      ".flex.flex-col.items-start.gap-1.rounded-md.border.border-primary.px-4.py-2.text-foreground"
+      '.flex.flex-col.items-start.gap-1.rounded-md.border.border-primary.px-4.py-2.text-foreground',
     );
 
     expect(cardContainer).toBeInTheDocument();
   });
 
-  it("正しいクラスを持つタイトルスケルトンを表示する", () => {
+  it('正しいクラスを持つタイトルスケルトンを表示する', () => {
     const { container } = render(<TaskCardSkeleton />);
-    const titleSkeleton = container.querySelector(".h-7.w-3\\/4.rounded-lg");
+    const titleSkeleton = container.querySelector('.h-7.w-3\\/4.rounded-lg');
 
     expect(titleSkeleton).toBeInTheDocument();
   });
 
-  it("正しいクラスを持つ日付スケルトンを表示する", () => {
+  it('正しいクラスを持つ日付スケルトンを表示する', () => {
     const { container } = render(<TaskCardSkeleton />);
-    const dateSkeleton = container.querySelector(".h-5.w-24.rounded-lg");
+    const dateSkeleton = container.querySelector('.h-5.w-24.rounded-lg');
 
     expect(dateSkeleton).toBeInTheDocument();
   });
 
-  it("bg-default-200クラスを持つスケルトンの子要素を持つ", () => {
+  it('bg-default-200クラスを持つスケルトンの子要素を持つ', () => {
     const { container } = render(<TaskCardSkeleton />);
-    const skeletonChildren = container.querySelectorAll(".bg-default-200");
+    const skeletonChildren = container.querySelectorAll('.bg-default-200');
 
     expect(skeletonChildren).toHaveLength(2);
   });
