@@ -13,7 +13,10 @@ export default async function ResetPassword(props: {
 }) {
   const searchParams = await props.searchParams;
   return (
-    <form className="flex w-full max-w-md flex-col gap-2 p-4 [&>input]:mb-4">
+    <form
+      action={resetPasswordAction}
+      className="flex w-full max-w-md flex-col gap-2 p-4 [&>input]:mb-4"
+    >
       <h1 className="font-medium text-2xl">パスワード再設定</h1>
       <p className="text-foreground/60 text-sm">
         新しいパスワードを入力してください。
@@ -32,9 +35,7 @@ export default async function ResetPassword(props: {
         autoComplete="new-password"
         isRequired
       />
-      <SubmitButton formAction={resetPasswordAction}>
-        パスワードを更新
-      </SubmitButton>
+      <SubmitButton>パスワードを更新</SubmitButton>
       <FormMessage message={searchParams} />
     </form>
   );

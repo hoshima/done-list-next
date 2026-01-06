@@ -22,7 +22,10 @@ export default async function Signup(props: {
   }
 
   return (
-    <form className="mx-auto flex min-w-64 max-w-64 flex-col">
+    <form
+      action={signUpAction}
+      className="mx-auto flex min-w-64 max-w-64 flex-col"
+    >
       <h1 className="font-medium text-2xl">登録</h1>
       <p className="text-foreground text-sm">
         登録済みの場合は{' '}
@@ -39,9 +42,7 @@ export default async function Signup(props: {
           minLength={6}
           isRequired
         />
-        <SubmitButton formAction={signUpAction} pendingText="登録しています…">
-          登録
-        </SubmitButton>
+        <SubmitButton pendingText="登録しています…">登録</SubmitButton>
         <FormMessage message={searchParams} />
       </div>
     </form>

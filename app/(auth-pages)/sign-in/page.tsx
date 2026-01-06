@@ -50,7 +50,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           </Link>
         </p>
       </div>
-      <form>
+      <form action={signInAction}>
         <div className="mt-4 flex flex-col gap-4">
           <Input label="メールアドレス" name="email" isRequired />
           <Input
@@ -60,10 +60,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
             isRequired
           />
 
-          <SubmitButton
-            pendingText="ログインしています…"
-            formAction={signInAction}
-          >
+          <SubmitButton pendingText="ログインしています…">
             ログイン
           </SubmitButton>
           <FormMessage message={searchParams} />
