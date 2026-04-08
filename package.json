@@ -29,6 +29,7 @@
     "next-themes": "^0.4.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "temporal-polyfill": "^0.3.2",
     "type-fest": "^4.32.0"
   },
   "devDependencies": {
