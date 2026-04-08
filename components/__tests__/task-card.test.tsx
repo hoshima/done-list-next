@@ -54,7 +54,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText('2024-01-01')).toBeInTheDocument();
+    expect(screen.getByText('2024/01/01')).toBeInTheDocument();
   });
 
   it('renders task description when provided', () => {
@@ -147,7 +147,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    const taskDate = screen.getByText('2024-01-01');
+    const taskDate = screen.getByText('2024/01/01');
     expect(taskDate).toBeInTheDocument();
     expect(taskDate).toHaveClass('text-sm');
     expect(taskDate.tagName).toBe('P');
