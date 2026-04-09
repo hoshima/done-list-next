@@ -107,8 +107,8 @@ describe('TaskList', () => {
     await renderTaskList({ query: undefined, page: 1 });
 
     await waitFor(() => {
-      expect(screen.getByTestId('task-card-1')).toBeInTheDocument();
-      expect(screen.getByTestId('task-card-2')).toBeInTheDocument();
+      expect(screen.getByTestId('task-card-1')).toBeDefined();
+      expect(screen.getByTestId('task-card-2')).toBeDefined();
     });
   });
 
@@ -124,7 +124,7 @@ describe('TaskList', () => {
     await renderTaskList({ query: undefined, page: 1 });
 
     await waitFor(() => {
-      expect(screen.getByText('タスクがありません')).toBeInTheDocument();
+      expect(screen.getByText('タスクがありません')).toBeDefined();
     });
   });
 
@@ -143,8 +143,8 @@ describe('TaskList', () => {
     await renderTaskList({ query: 'Test Task 1', page: 1 });
 
     await waitFor(() => {
-      expect(screen.getByTestId('task-card-1')).toBeInTheDocument();
-      expect(screen.queryByTestId('task-card-2')).not.toBeInTheDocument();
+      expect(screen.getByTestId('task-card-1')).toBeDefined();
+      expect(screen.queryByTestId('task-card-2')).toBeNull();
     });
   });
 
@@ -160,9 +160,7 @@ describe('TaskList', () => {
     await renderTaskList({ query: 'nonexistent task', page: 1 });
 
     await waitFor(() => {
-      expect(
-        screen.getByText('検索結果が見つかりませんでした'),
-      ).toBeInTheDocument();
+      expect(screen.getByText('検索結果が見つかりませんでした')).toBeDefined();
     });
   });
 
@@ -181,7 +179,7 @@ describe('TaskList', () => {
     await renderTaskList({ query: undefined, page: 2 });
 
     await waitFor(() => {
-      expect(screen.getByText('Page 2 of 2')).toBeInTheDocument();
+      expect(screen.getByText('Page 2 of 2')).toBeDefined();
     });
   });
 
@@ -197,7 +195,7 @@ describe('TaskList', () => {
 
       // Component should handle errors gracefully and show empty state
       await waitFor(() => {
-        expect(screen.getByText('タスクがありません')).toBeInTheDocument();
+        expect(screen.getByText('タスクがありません')).toBeDefined();
       });
     });
   });
@@ -216,7 +214,7 @@ describe('TaskList', () => {
       await renderAsyncComponent(Promise.resolve(result));
 
       await waitFor(() => {
-        expect(screen.getByTestId('task-card-1')).toBeInTheDocument();
+        expect(screen.getByTestId('task-card-1')).toBeDefined();
       });
     });
 

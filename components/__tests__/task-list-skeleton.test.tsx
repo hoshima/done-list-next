@@ -1,5 +1,3 @@
-/// <reference types="@vitest/browser/context" />
-
 import { cleanup, render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -42,7 +40,7 @@ describe('TaskListSkeleton', () => {
     const { container } = render(<TaskListSkeleton />);
     const listContainer = container.querySelector('.flex.flex-col.gap-4');
 
-    expect(listContainer).toBeInTheDocument();
+    expect(listContainer).not.toBeNull();
   });
 
   it('ユニークキーを持つスケルトンカードを表示する', () => {
@@ -70,21 +68,21 @@ describe('TaskCardSkeleton', () => {
       '.flex.flex-col.items-start.gap-1.rounded-md.border.border-primary.px-4.py-2.text-foreground',
     );
 
-    expect(cardContainer).toBeInTheDocument();
+    expect(cardContainer).not.toBeNull();
   });
 
   it('正しいクラスを持つタイトルスケルトンを表示する', () => {
     const { container } = render(<TaskCardSkeleton />);
     const titleSkeleton = container.querySelector('.h-7.w-3\\/4.rounded-lg');
 
-    expect(titleSkeleton).toBeInTheDocument();
+    expect(titleSkeleton).not.toBeNull();
   });
 
   it('正しいクラスを持つ日付スケルトンを表示する', () => {
     const { container } = render(<TaskCardSkeleton />);
     const dateSkeleton = container.querySelector('.h-5.w-24.rounded-lg');
 
-    expect(dateSkeleton).toBeInTheDocument();
+    expect(dateSkeleton).not.toBeNull();
   });
 
   it('bg-default-200クラスを持つスケルトンの子要素を持つ', () => {

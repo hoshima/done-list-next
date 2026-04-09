@@ -9,8 +9,7 @@
     "check": "biome check ./",
     "fix": "biome check --write ./",
     "generate:type": "npx supabase gen types --project-id=igfboflygtixuqmmlagm --lang=typescript --schema public > app/types/database-generated.types.ts",
-    "test": "vitest run",
-    "test:browser": "vitest --workspace=vitest.workspace.ts"
+    "test": "vitest"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -41,7 +40,7 @@
     "@types/node": "^24.10.4",
     "@types/react": "19.2.5",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^5.0.1",
     "@vitest/browser": "^3.2.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "jsdom": "^26.1.0",
@@ -53,8 +52,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.7.2",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.1.2",
-    "vitest-browser-react": "^0.2.0"
+    "vitest": "^3.2.4",
+    "vitest-browser-react": "^1.0.1"
   },
   "overrides": {
     "@types/react": "19.2.5",

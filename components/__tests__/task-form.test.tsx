@@ -1,5 +1,3 @@
-/// <reference types="@vitest/browser/context" />
-
 import {
   cleanup,
   fireEvent,
@@ -171,11 +169,11 @@ describe('TaskForm', () => {
   it('新規タスク作成時に正しくレンダリングされる', () => {
     render(<TaskForm action={mockAction} />);
 
-    expect(screen.getByLabelText('タイトル')).toBeInTheDocument();
-    expect(screen.getByLabelText('日付')).toBeInTheDocument();
-    expect(screen.getByLabelText('説明')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '戻る' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'やった' })).toBeInTheDocument();
+    expect(screen.getByLabelText('タイトル')).toBeDefined();
+    expect(screen.getByLabelText('日付')).toBeDefined();
+    expect(screen.getByLabelText('説明')).toBeDefined();
+    expect(screen.getByRole('link', { name: '戻る' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'やった' })).toBeDefined();
   });
 
   it('既存タスクの編集時にデフォルト値が設定される', () => {
@@ -194,9 +192,9 @@ describe('TaskForm', () => {
       '説明',
     ) as HTMLTextAreaElement;
 
-    expect(titleInput).toHaveValue('テストタスク');
-    expect(dateInput).toHaveValue('2025-06-03');
-    expect(descriptionTextarea).toHaveValue('テスト説明');
+    expect(titleInput.value).toBe('テストタスク');
+    expect(dateInput.value).toBe('2025-06-03');
+    expect(descriptionTextarea.value).toBe('テスト説明');
   });
 
   it('必須フィールドが適切に設定される', () => {
@@ -206,18 +204,19 @@ describe('TaskForm', () => {
     const dateInput = screen.getByLabelText('日付');
     const descriptionTextarea = screen.getByLabelText('説明');
 
-    expect(titleInput).toBeRequired();
-    expect(dateInput).toBeRequired();
-    expect(descriptionTextarea).not.toBeRequired();
+    expect(titleInput.hasAttribute('required')).toBe(true);
+    expect(dateInput.hasAttribute('required')).toBe(true);
+    expect(descriptionTextarea.hasAttribute('required')).toBe(false);
   });
 
   it('入力フィールドの名前属性が正しく設定される', () => {
     render(<TaskForm action={mockAction} />);
 
-    expect(screen.getByLabelText('タイトル')).toHaveAttribute('name', 'title');
-    expect(screen.getByLabelText('日付')).toHaveAttribute('name', 'date');
-    expect(screen.getByLabelText('説明')).toHaveAttribute(
-      'name',
+    expect(screen.getByLabelText('タイトル').getAttribute('name')).toBe(
+      'title',
+    );
+    expect(screen.getByLabelText('日付').getAttribute('name')).toBe('date');
+    expect(screen.getByLabelText('説明').getAttribute('name')).toBe(
       'description',
     );
   });
@@ -226,14 +225,14 @@ describe('TaskForm', () => {
     render(<TaskForm action={mockAction} />);
 
     const dateInput = screen.getByLabelText('日付');
-    expect(dateInput).toHaveAttribute('type', 'date');
+    expect(dateInput.getAttribute('type')).toBe('date');
   });
 
   it('新規作成時は削除ボタンが無効化される', () => {
     render(<TaskForm action={mockAction} />);
 
     const deleteButton = screen.getByTestId('delete-button-new');
-    expect(deleteButton).toBeDisabled();
+    expect(deleteButton.hasAttribute('disabled')).toBe(true);
   });
 
   it('既存タスク編集時は削除ボタンが有効化される', () => {
@@ -247,7 +246,7 @@ describe('TaskForm', () => {
     render(<TaskForm action={mockAction} task={task} />);
 
     const deleteButton = screen.getByTestId('delete-button-1');
-    expect(deleteButton).not.toBeDisabled();
+    expect(deleteButton.hasAttribute('disabled')).toBe(false);
   });
 
   it('フォーム送信時にactionが呼び出される', async () => {
@@ -265,14 +264,14 @@ describe('TaskForm', () => {
     render(<TaskForm action={mockAction} />);
 
     const backLink = screen.getByRole('link', { name: '戻る' });
-    expect(backLink).toHaveAttribute('href', '/home');
+    expect(backLink.getAttribute('href')).toBe('/home');
   });
 
   it('送信ボタンのタイプがsubmitに設定される', () => {
     render(<TaskForm action={mockAction} />);
 
     const submitButton = screen.getByRole('button', { name: 'やった' });
-    expect(submitButton).toHaveAttribute('type', 'submit');
+    expect(submitButton.getAttribute('type')).toBe('submit');
   });
 
   it('カスタムpropsが正しく渡される', () => {
@@ -284,8 +283,8 @@ describe('TaskForm', () => {
     render(<TaskForm action={mockAction} {...customProps} />);
 
     const form = screen.getByTestId('custom-form');
-    expect(form).toBeInTheDocument();
-    expect(form).toHaveClass('custom-class');
+    expect(form).toBeDefined();
+    expect(form.classList.contains('custom-class')).toBe(true);
   });
 
   it('validationBehaviorがnativeに設定される', () => {
@@ -293,7 +292,7 @@ describe('TaskForm', () => {
 
     // フォームが正しくレンダリングされることを確認
     const form = screen.getByTestId('task-form');
-    expect(form).toBeInTheDocument();
+    expect(form).toBeDefined();
   });
 
   it('フォームリセット時にsubmittedステートがクリアされる', async () => {
@@ -303,6 +302,6 @@ describe('TaskForm', () => {
     fireEvent.reset(form);
 
     // リセット機能が動作することを確認（内部ステートのテストは困難なため、フォームがレンダリングされることで間接的に確認）
-    expect(form).toBeInTheDocument();
+    expect(form).toBeDefined();
   });
 });

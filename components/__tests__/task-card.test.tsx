@@ -41,7 +41,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText('Test Task')).toBeInTheDocument();
+    expect(screen.getByText('Test Task')).toBeDefined();
   });
 
   it('renders task date correctly', () => {
@@ -54,7 +54,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText('2024/01/01')).toBeInTheDocument();
+    expect(screen.getByText('2024/01/01')).toBeDefined();
   });
 
   it('renders task description when provided', () => {
@@ -67,7 +67,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText('Test description')).toBeInTheDocument();
+    expect(screen.getByText('Test description')).toBeDefined();
   });
 
   it('does not render description when not provided', () => {
@@ -79,7 +79,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.queryByText('Test description')).not.toBeInTheDocument();
+    expect(screen.queryByText('Test description')).toBeNull();
   });
 
   it('renders with correct href link', () => {
@@ -93,7 +93,7 @@ describe('TaskCard', () => {
     render(<TaskCard task={task} />);
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/1');
+    expect(link.getAttribute('href')).toBe('/1');
   });
 
   it('applies correct CSS classes', () => {
@@ -107,17 +107,19 @@ describe('TaskCard', () => {
     render(<TaskCard task={task} />);
 
     const link = screen.getByRole('link');
-    expect(link).toHaveClass(
-      'flex',
-      'flex-col',
-      'items-start',
-      'gap-1',
-      'rounded-md',
-      'border',
-      'border-primary',
-      'py-2',
-      'px-4',
-      'text-foreground',
+    expect([...link.classList]).toEqual(
+      expect.arrayContaining([
+        'flex',
+        'flex-col',
+        'items-start',
+        'gap-1',
+        'rounded-md',
+        'border',
+        'border-primary',
+        'py-2',
+        'px-4',
+        'text-foreground',
+      ]),
     );
   });
 
@@ -132,8 +134,10 @@ describe('TaskCard', () => {
     render(<TaskCard task={task} />);
 
     const taskName = screen.getByText('Test Task');
-    expect(taskName).toBeInTheDocument();
-    expect(taskName).toHaveClass('text-lg', 'font-medium');
+    expect(taskName).toBeDefined();
+    expect([...taskName.classList]).toEqual(
+      expect.arrayContaining(['text-lg', 'font-medium']),
+    );
     expect(taskName.tagName).toBe('H3');
   });
 
@@ -148,8 +152,8 @@ describe('TaskCard', () => {
     render(<TaskCard task={task} />);
 
     const taskDate = screen.getByText('2024/01/01');
-    expect(taskDate).toBeInTheDocument();
-    expect(taskDate).toHaveClass('text-sm');
+    expect(taskDate).toBeDefined();
+    expect(taskDate.classList.contains('text-sm')).toBe(true);
     expect(taskDate.tagName).toBe('P');
   });
 
@@ -164,8 +168,8 @@ describe('TaskCard', () => {
     render(<TaskCard task={task} />);
 
     const taskDescription = screen.getByText('Test description');
-    expect(taskDescription).toBeInTheDocument();
-    expect(taskDescription).toHaveClass('text-sm');
+    expect(taskDescription).toBeDefined();
+    expect(taskDescription.classList.contains('text-sm')).toBe(true);
     expect(taskDescription.tagName).toBe('P');
   });
 
@@ -200,7 +204,7 @@ describe('TaskCard', () => {
 
     expect(
       screen.getByText('Test Task with Special Characters: !@#$%^&*()'),
-    ).toBeInTheDocument();
+    ).toBeDefined();
   });
 
   it('handles special characters in task description', () => {
@@ -215,7 +219,7 @@ describe('TaskCard', () => {
 
     expect(
       screen.getByText('Description with special chars: <>&"\''),
-    ).toBeInTheDocument();
+    ).toBeDefined();
   });
 
   it('handles long task names', () => {
@@ -229,7 +233,7 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText(longName)).toBeInTheDocument();
+    expect(screen.getByText(longName)).toBeDefined();
   });
 
   it('handles long task descriptions', () => {
@@ -243,6 +247,6 @@ describe('TaskCard', () => {
 
     render(<TaskCard task={task} />);
 
-    expect(screen.getByText(longDescription)).toBeInTheDocument();
+    expect(screen.getByText(longDescription)).toBeDefined();
   });
 });
